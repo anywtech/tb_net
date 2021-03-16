@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tb_net/storage/storage_manager.dart';
+import 'package:tb_net/utils/locator.dart';
+import 'package:tb_net/utils/routers.dart';
 
 class Profile extends StatefulWidget {
   @override
@@ -49,6 +52,15 @@ class _ProfileState extends State<Profile> {
                     ),
                   ),
                 ),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  await locator.get<StorageManager>().reset("token");
+
+                  Navigator.pushNamedAndRemoveUntil(
+                      context, RouterPages.Login, (_) => false);
+                },
+                child: Text('log off'),
               ),
             ],
           ),

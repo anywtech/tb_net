@@ -1,12 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tb_net/providers/login_form.dart';
 import 'package:tb_net/storage/storage_manager.dart';
-import 'package:tb_net/utils/connection_status.dart';
 import 'package:tb_net/utils/locator.dart';
 import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/home/time_shower.dart';
+import 'package:tb_net/widgets/home/timer_stream.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -14,22 +13,6 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  bool isOffline = false;
-
-  @override
-  void initState() {
-    // TODO: implement initState
-    // locator.get<ConnectionStatus>().connectionChange.listen(connectionChanged);
-
-    super.initState();
-  }
-
-  void connectionChanged(dynamic hasConnection) {
-    setState(() {
-      isOffline = !hasConnection;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final currentUser =
@@ -37,7 +20,24 @@ class _HomeState extends State<Home> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome $currentUser'),
-        actions: [],
+        actions: [
+          ElevatedButton(
+            onPressed: () async {
+              String token;
+              try {
+                token = await locator.get<StorageManager>().get('token');
+              } catch (e) {
+                token = null;
+              }
+
+              if (token == "" || token == null) {
+                Navigator.pushNamedAndRemoveUntil(
+                    context, RouterPages.Login, (_) => false);
+              }
+            },
+            child: Text('get it the token'),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -46,37 +46,11 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(18.0),
               child: Text(currentUser),
             ),
-            ElevatedButton(
-              onPressed: () async {
-                String token;
-                try {
-                  token = await locator.get<StorageManager>().get('token');
-                } catch (e) {
-                  token = null;
-                }
-
-                if (token == "" || token == null) {
-                  Navigator.pushNamedAndRemoveUntil(
-                      context, RouterPages.Login, (_) => false);
-                }
-              },
-              child: Text('get it the token'),
+            TimeShower(),
+            SizedBox(
+              height: 50.0,
             ),
-            ElevatedButton(
-              onPressed: () async {
-                await locator.get<StorageManager>().reset("token");
-
-                Navigator.pushNamedAndRemoveUntil(
-                    context, RouterPages.Login, (_) => false);
-              },
-              child: Text('log off'),
-            ),
-            Padding(
-              padding: EdgeInsets.all(15.0),
-              child: (isOffline)
-                  ? new Text("Not connected")
-                  : new Text("Connected"),
-            ),
+            TimerStream(),
           ],
         ),
       ),
