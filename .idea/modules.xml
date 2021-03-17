@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/tb_net.iml" filepath="$PROJECT_DIR$/.idea/tb_net.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tb_net.iml" filepath="$PROJECT_DIR$/tb_net.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/tb_net_android.iml" filepath="$PROJECT_DIR$/android/tb_net_android.iml" />
     </modules>
   </component>
 </project>

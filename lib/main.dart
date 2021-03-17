@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<LoginFormProvider>(
           create: (_) => LoginFormProvider(),
-        )
+        ),
       ],
       child: MaterialApp(
         theme: ThemeData(

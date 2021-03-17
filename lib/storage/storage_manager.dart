@@ -11,7 +11,7 @@ class StorageManager {
 
   StorageManager(this._secureStorage);
 
-  //read value of contents
+  //get prefs
   Future<String> getVal(String key) async {
     try {
       final data = await _secureStorage.read(key: key);
@@ -22,7 +22,34 @@ class StorageManager {
     }
   }
 
-  //read value of security
+  // wirite prefs
+  Future<void> setVal(String key, String data) async {
+    try {
+      await _secureStorage.write(key: key, value: data);
+    } on Exception catch (e) {
+      // TODO
+    }
+  }
+
+  // wirite tokens
+  Future<void> caching(Authresp authresp, String key) async {
+    try {
+      final Cache cache = Cache(
+          token: authresp.token,
+          refresh: authresp.refresh,
+          ext: authresp.ext,
+          createAt: DateTime.now());
+
+      final data = jsonEncode(cache.toJson());
+
+      await _secureStorage.write(key: key, value: data);
+    } on Exception catch (e) {
+      // TODO
+
+    }
+  }
+
+  //get token
   Future<String> get(String key) async {
     try {
       final data = await _secureStorage.read(key: key);
@@ -65,24 +92,6 @@ class StorageManager {
       await _secureStorage.delete(key: key);
     } on Exception catch (e) {
       // TODO
-    }
-  }
-
-  // wirite tokens
-  Future<void> caching(Authresp authresp, String key) async {
-    try {
-      final Cache cache = Cache(
-          token: authresp.token,
-          refresh: authresp.refresh,
-          ext: authresp.ext,
-          createAt: DateTime.now());
-
-      final data = jsonEncode(cache.toJson());
-
-      await _secureStorage.write(key: key, value: data);
-    } on Exception catch (e) {
-      // TODO
-
     }
   }
 }

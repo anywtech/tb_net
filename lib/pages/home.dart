@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tb_net/providers/login_form.dart';
@@ -17,6 +19,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final currentUser =
         Provider.of<LoginFormProvider>(context, listen: false).currentUser;
+    final List<Locale> initialSystemLocales =
+        WidgetsBinding.instance.window.locales;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome $currentUser'),
@@ -51,6 +56,20 @@ class _HomeState extends State<Home> {
               height: 50.0,
             ),
             TimerStream(),
+            SizedBox(
+              height: 50.0,
+            ),
+            Text('system lang is : ${Platform.localeName}'),
+            SizedBox(
+              height: 50.0,
+            ),
+            for (var locale in initialSystemLocales) Text(locale.toString()),
+            SizedBox(
+              height: 50.0,
+            ),
+            SizedBox(
+              height: 50.0,
+            ),
           ],
         ),
       ),
