@@ -2,10 +2,12 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:tb_net/providers/home.dart';
 import 'package:tb_net/providers/login_form.dart';
 import 'package:tb_net/storage/storage_manager.dart';
 import 'package:tb_net/utils/locator.dart';
 import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/home/locale_picker.dart';
 import 'package:tb_net/widgets/home/time_shower.dart';
 import 'package:tb_net/widgets/home/timer_stream.dart';
 
@@ -17,13 +19,27 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var currentUser;
+
+  final List<Locale> initialSystemLocales =
+      WidgetsBinding.instance.window.locales;
+
+  @override
+  void initState() {
+    currentUser =
+        Provider.of<LoginFormProvider>(context, listen: false).currentUser;
+    Provider.of<HomeProvider>(context, listen: false).getLocale();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    currentUser = null;
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final currentUser =
-        Provider.of<LoginFormProvider>(context, listen: false).currentUser;
-    final List<Locale> initialSystemLocales =
-        WidgetsBinding.instance.window.locales;
-
     return Scaffold(
       appBar: AppBar(
         title: Text('Welcome $currentUser'),
@@ -49,64 +65,60 @@ class _HomeState extends State<Home> {
       body: SingleChildScrollView(
         child: Container(
           width: double.infinity,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(18.0),
-                child: Text(currentUser),
-              ),
-              TimeShower(),
-              SizedBox(
-                height: 50.0,
-              ),
-              TimerStream(),
-              SizedBox(
-                height: 50.0,
-              ),
-              Text('system default lang is : ${Platform.localeName}'),
-              Text('app selected lang is : ${S.current.localeName}'),
-              SizedBox(
-                height: 50.0,
-              ),
-              for (var locale in initialSystemLocales) Text(locale.toString()),
-              SizedBox(
-                height: 50.0,
-              ),
-              SizedBox(
-                height: 50.0,
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  S.load(Locale('en', 'US'));
-                  setState(() {});
-                },
-                child: Text('ENGLISH'),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  S.load(Locale('de', 'DE'));
-                  setState(() {});
-                },
-                child: Text('GERMAN'),
-              ),
-              Text(S.of(context).pageHomeListTitle,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center),
-              Text(""),
-              Text(S.of(context).pageHomeSamplePlaceholder("John"),
-                  style: TextStyle(fontSize: 20)),
-              Text(
-                  S
-                      .of(context)
-                      .pageHomeSamplePlaceholdersOrdered("John", "Doe"),
-                  style: TextStyle(fontSize: 20)),
-              Text(S.of(context).pageHomeSamplePlural(2),
-                  style: TextStyle(fontSize: 20)),
-              SizedBox(
-                height: 200.0,
-              ),
-            ],
+          child: Consumer<HomeProvider>(
+            builder: (__, locale, _) => Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(18.0),
+                  child: Text(currentUser),
+                ),
+                TimeShower(),
+                SizedBox(
+                  height: 50.0,
+                ),
+                TimerStream(),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Text('system default lang is : ${Platform.localeName}'),
+                Text(
+                    'system default county code is ${Platform.localeName.split('_')[1]}'),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Text('app selected lang is : ${locale.locale.languageCode})'),
+                Text(
+                    'app selected country code  is : ${locale.locale.countryCode}'),
+                SizedBox(
+                  height: 50.0,
+                ),
+                for (var locale in initialSystemLocales)
+                  Text(locale.toString()),
+                SizedBox(
+                  height: 50.0,
+                ),
+                LocalePicker(iconData: Icons.work_outlined, T: locale),
+                SizedBox(
+                  height: 50.0,
+                ),
+                Text(S.of(context).pageHomeListTitle,
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center),
+                Text(S.of(context).pageHomeSamplePlaceholder("John"),
+                    style: TextStyle(fontSize: 20)),
+                Text(
+                    S
+                        .of(context)
+                        .pageHomeSamplePlaceholdersOrdered("John", "Doe"),
+                    style: TextStyle(fontSize: 20)),
+                Text(S.of(context).pageHomeSamplePlural(2),
+                    style: TextStyle(fontSize: 20)),
+                SizedBox(
+                  height: 200.0,
+                ),
+              ],
+            ),
           ),
         ),
       ),

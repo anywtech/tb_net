@@ -1,0 +1,15 @@
+1. locationlization - 
+
+Additional set up for iOS apps:
+
+To enable localization for iOS apps, extend ios/Runner/Info.plist file with supported locales configuration. This list should be consistent with the locales listed in the lib/l10n folder.
+
+<key>CFBundleLocalizations</key>
+<array>
+    <string>en</string>
+    <string>de_DE</string>
+    ...
+</array>
+
+
+2. 

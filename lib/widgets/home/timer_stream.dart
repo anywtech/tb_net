@@ -9,7 +9,7 @@ class TimerStream extends StatelessWidget {
       builder: (context, snapshot) {
         return Container(
           child: Text(
-            DateFormat('MM/dd/yyy hh:mm:ss:ms').format(
+            DateFormat('MM/dd/yyy hh:mm:ss').format(
               DateTime.now(),
             ),
           ),

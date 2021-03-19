@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:tb_net/models/auth_resp.dart';
 import 'package:tb_net/models/cache.dart';
@@ -11,23 +12,47 @@ class StorageManager {
 
   StorageManager(this._secureStorage);
 
-  //get prefs
-  Future<String> getVal(String key) async {
+  //get prefs string value
+  Future getVal(String key) async {
     try {
       final data = await _secureStorage.read(key: key);
       return data;
     } on Exception catch (e) {
       // TODO
+
       return null;
     }
   }
 
-  // wirite prefs
+  // wirite prefs string value
   Future<void> setVal(String key, String data) async {
     try {
       await _secureStorage.write(key: key, value: data);
     } on Exception catch (e) {
       // TODO
+      throw e;
+    }
+  }
+
+  //get prefs with json
+  Future getValPair(String key) async {
+    try {
+      final data = await _secureStorage.read(key: key);
+      return jsonDecode(data);
+    } on Exception catch (e) {
+      // TODO
+
+      return null;
+    }
+  }
+
+  // wirite prefs with json
+  Future<void> setValPair(String key, dynamic data) async {
+    try {
+      await _secureStorage.write(key: key, value: jsonEncode(data));
+    } on Exception catch (e) {
+      // TODO
+      throw e;
     }
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:tb_net/pages/dispatcher.dart';
+import 'package:tb_net/providers/home.dart';
 import 'package:tb_net/providers/login_form.dart';
 import 'package:tb_net/utils/locator.dart';
 import 'package:tb_net/utils/routers.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<LoginFormProvider>(
           create: (_) => LoginFormProvider(),
         ),
+        ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
       ],
       child: MaterialApp(
         localizationsDelegates: [
