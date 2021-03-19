@@ -38,7 +38,10 @@ class StorageManager {
   Future getValPair(String key) async {
     try {
       final data = await _secureStorage.read(key: key);
-      return jsonDecode(data);
+      if (data != null) {
+        return jsonDecode(data);
+      }
+      return null;
     } on Exception catch (e) {
       // TODO
 
