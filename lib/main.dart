@@ -10,10 +10,10 @@ import 'package:tb_net/utils/routers.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
-  await locator.get<UdcInvitation>().initUdcInvitaion();
+
   runApp(MyApp());
 }
 

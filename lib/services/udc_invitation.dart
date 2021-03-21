@@ -1,24 +1,24 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:tb_net/utils/logs.dart';
 import 'package:tb_net/utils/routers.dart';
 
 class UdcInvitation {
-  Future initUdcInvitaion() async {
-   
+  Future initUdcInvitaion(BuildContext context) async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData data) async {
-      _handleLinks(data);
+      _handleLinks(data, context);
     }, onError: (OnLinkErrorException e) async {
-      print('onLinkError');
-      print(e.message);
+      //  print('onLinkError');
+      Logs.p.e(e.message);
     });
 
-     final PendingDynamicLinkData data =
+    final PendingDynamicLinkData data =
         await FirebaseDynamicLinks.instance.getInitialLink();
-    _handleLinks(data);
-
+    _handleLinks(data, context);
   }
 
-  void _handleLinks(PendingDynamicLinkData data) {
+  void _handleLinks(PendingDynamicLinkData data, BuildContext context) {
     final Uri inviteLink = data?.link;
     if (inviteLink != null) {
       var isInvited = inviteLink.pathSegments.contains('invite');
@@ -26,10 +26,9 @@ class UdcInvitation {
       if (isInvited) {
         var code = inviteLink.queryParameters['code'];
 
-        print('code is $code');
-
         if (code != null) {
-          Routers.navTo(RouterPages.News, args: code);
+          // Routers.navTo(RouterPages.News, args: code);
+          Navigator.of(context).pushNamed(RouterPages.News, arguments: code);
         }
       }
     }
@@ -64,7 +63,6 @@ class UdcInvitation {
 
     final Uri inviteLink = shortLink.shortUrl;
 
-    print(inviteLink);
     return inviteLink.toString();
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
@@ -13,8 +15,9 @@ class Home extends StatefulWidget {
   _HomeState createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with WidgetsBindingObserver {
   var currentUser;
+  Timer linkTimer;
 
   @override
   void initState() {
@@ -22,13 +25,30 @@ class _HomeState extends State<Home> {
         Provider.of<LoginFormProvider>(context, listen: false).currentUser;
     //get the default locale settings
     Provider.of<HomeProvider>(context, listen: false).getLocale();
+    //invitation link page
+    locator.get<UdcInvitation>().initUdcInvitaion(context);
+    // WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
+/* 
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      linkTimer = new Timer(const Duration(milliseconds: 1000), () {
+        //invitation link page
+        locator.get<UdcInvitation>().initUdcInvitaion(context);
+      });
+    }
+  } */
 
   @override
   void dispose() {
     currentUser = null;
     super.dispose();
+    /*   WidgetsBinding.instance.removeObserver(this);
+    if (linkTimer != null) {
+      linkTimer.cancel();
+    } */
   }
 
   @override
