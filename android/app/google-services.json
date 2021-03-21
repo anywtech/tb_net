@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "706980525734",
+    "project_id": "tb-net-73df8",
+    "storage_bucket": "tb-net-73df8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706980525734:android:5bc85a7ff5575f632ae667",
+        "android_client_info": {
+          "package_name": "com.anywtech.tb_net"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "706980525734-kgl95bplrq79bfcu9lfq4jaelfqhdr9t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-x87HBrkYVs5ikCyjlNPB6g5KWsJYCu8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "706980525734-kgl95bplrq79bfcu9lfq4jaelfqhdr9t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

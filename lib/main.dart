@@ -3,17 +3,17 @@ import 'package:provider/provider.dart';
 import 'package:tb_net/pages/dispatcher.dart';
 import 'package:tb_net/providers/home.dart';
 import 'package:tb_net/providers/login_form.dart';
+import 'package:tb_net/services/udc_invitation.dart';
 import 'package:tb_net/utils/locator.dart';
 import 'package:tb_net/utils/routers.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'generated/l10n.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
   setupLocator();
-
+  await locator.get<UdcInvitation>().initUdcInvitaion();
   runApp(MyApp());
 }
 
@@ -53,6 +53,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         home: Dispatcher(),
+        navigatorKey: Routers.navKey,
         onGenerateRoute: Routers.materialPageRoute,
       ),
     );

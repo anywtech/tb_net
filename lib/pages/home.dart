@@ -1,9 +1,9 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:tb_net/providers/home.dart';
 import 'package:tb_net/providers/login_form.dart';
+import 'package:tb_net/services/udc_invitation.dart';
 import 'package:tb_net/storage/storage_manager.dart';
 import 'package:tb_net/utils/locator.dart';
 import 'package:tb_net/utils/routers.dart';
@@ -55,7 +55,59 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      body: SingleChildScrollView(),
+      body: SingleChildScrollView(
+        child: Container(
+          child: Stack(
+            children: [
+              Container(
+                child: Text('Map'),
+                width: double.infinity,
+                height: MediaQuery.of(context).size.height / 2,
+                color: Colors.orange.withOpacity(0.5),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        var shareLink = await locator
+                            .get<UdcInvitation>()
+                            .createInvitation('userid1');
+                        /* showDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (_) => AlertDialog(
+                            title: Text('shareLink'),
+                            content: Text(shareLink),
+                          ),
+                        ); */
+                        await Share.share(
+                          shareLink,
+                        );
+                      },
+                      child: Text('Invite a friend'),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.green)),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text('Get Contact list'),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.green)),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
       bottomNavigationBar: BottomAppBar(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -66,11 +118,15 @@ class _HomeState extends State<Home> {
             ),
             TextButton(
               child: Text('news'),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, RouterPages.News);
+              },
             ),
             TextButton(
               child: Text('chat'),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.pushNamed(context, RouterPages.Chat);
+              },
             ),
             TextButton(
               child: Text('profile'),
