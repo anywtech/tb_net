@@ -12,4 +12,4 @@ To enable localization for iOS apps, extend ios/Runner/Info.plist file with supp
 </array>
 
 
-2. 
+2. Dynamiclink IOS configure
