@@ -16,8 +16,9 @@ class CommonValue {
   static const String DescSocialLogin = "- I want to sign in with -";
 
   static const String lableTextOfPhone = "Phone Number";
-  static const String lableTextOfEmail = "Email Address";
-  static const String lableTextOfPassword = "Phone Number";
+  static const String lableTextOfEmail = "Email";
+  static const String lableTextOfPassword = "Password";
+  static const String labelTextOfInviation = "Your friend UDC ID";
 
   //share link
   static const String LinkTypeInvite = "invite";

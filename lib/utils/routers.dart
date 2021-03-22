@@ -37,7 +37,10 @@ class Routers {
         return MaterialPageRoute(builder: (context) => Login());
         break;
       case RouterPages.Register:
-        return MaterialPageRoute(builder: (context) => Register());
+        return MaterialPageRoute(
+            builder: (context) => Register(
+                  invitedBy: settings.arguments,
+                ));
         break;
       case RouterPages.Home:
         return MaterialPageRoute(builder: (context) => Home());

@@ -6,9 +6,12 @@ import 'package:tb_net/utils/routers.dart';
 import 'package:tb_net/widgets/input_text.dart';
 
 class RegisterForm extends StatelessWidget {
+  final String invitedBy;
+  const RegisterForm({Key key, this.invitedBy}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Consumer<RegisterFormProvider>(builder: (__, reg, _) {
+      reg.invitationControl.text = invitedBy;
       return Container(
         width: double.infinity,
         child: Column(
@@ -48,6 +51,19 @@ class RegisterForm extends StatelessWidget {
               ),
             ),
 
+            //invitaion user
+            Padding(
+              padding: const EdgeInsets.only(top: 15.0),
+              child: InputText(
+                controller: reg.passwordControl,
+                onChanged: (s) => reg.validation(s),
+                labeltext: CommonValue.labelTextOfInviation,
+                isReadOnly: true,
+                prefixIcon: Icons.supervised_user_circle,
+              ),
+            ),
+
+            // register button
             Container(
               margin: EdgeInsets.only(top: 15.0),
               width: double.infinity,

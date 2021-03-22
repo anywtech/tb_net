@@ -98,7 +98,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         var shareLink =
                             await locator.get<UdcInvitation>().createLink(
                                   CommonValue.LinkTypeInvite,
-                                  RouterPages.News,
+                                  RouterPages.Register,
                                   'userid1',
                                 );
                         /* showDialog(

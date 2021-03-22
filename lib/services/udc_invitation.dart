@@ -1,5 +1,6 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:tb_net/utils/common_value.dart';
 import 'package:tb_net/utils/logs.dart';
 import 'package:tb_net/utils/routers.dart';
 
@@ -19,29 +20,32 @@ class UdcInvitation {
   }
 
   void _handleLinks(PendingDynamicLinkData data, BuildContext context) {
-    final Uri inviteLink = data?.link;
-    if (inviteLink != null) {
-      var isInvited = inviteLink.pathSegments.contains('invite');
+    final Uri naviLink = data?.link;
+    if (naviLink != null) {
+      var linkType = naviLink.pathSegments.contains('linktype');
 
-      if (isInvited) {
-        var code = inviteLink.queryParameters['code'];
+      if (linkType) {
+        var lType = naviLink.queryParameters['linkType'];
 
-        if (code != null) {
-          // Routers.navTo(RouterPages.News, args: code);
-          Navigator.of(context).pushNamed(RouterPages.News, arguments: code);
-        }
+        if (lType == CommonValue.LinkTypeInvite) {
+          var code = naviLink.queryParameters['inviteCode'];
+          var path = naviLink.queryParameters['path'];
+          if (code != null) {
+            Navigator.of(context).pushNamed(path, arguments: code);
+          }
+        } else if (lType == CommonValue.LinkTypeShare) {}
       }
     }
   }
 
   //create a link
   //type = invite, share
-  Future<String> createLink(String type,
-      [String path, String inviterCode, String sid, String pid]) async {
+  Future<String> createLink(String linkType,
+      [String path, String inviteCode, String sid, String pid]) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: 'https://awtech.page.link',
       link: Uri.parse(
-          'https://awtech.com/linkparams?type=$type&path=$path&code=$inviterCode&sid=$sid&pid=$pid'),
+          'https://awtech.com/linkparams?linktype=$linkType&path=$path&code=$inviteCode&sid=$sid&pid=$pid'),
       androidParameters: AndroidParameters(
         packageName: 'com.anywtech.tb_net',
         //minimumVersion: 0,
@@ -64,8 +68,8 @@ class UdcInvitation {
 
     final ShortDynamicLink shortLink = await parameters.buildShortLink();
 
-    final Uri inviteLink = shortLink.shortUrl;
+    final Uri linkAddr = shortLink.shortUrl;
 
-    return inviteLink.toString();
+    return linkAddr.toString();
   }
 }

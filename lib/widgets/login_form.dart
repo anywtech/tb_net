@@ -7,6 +7,8 @@ import 'package:tb_net/utils/routers.dart';
 import 'package:tb_net/widgets/input_text.dart';
 
 class LoginForm extends StatelessWidget {
+  final String code;
+  const LoginForm({Key key, this.code}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     var _globleSetting = GlobalPref.of(context);

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:tb_net/utils/global_pref.dart';
-import 'package:tb_net/widgets/login_form.dart';
 import 'package:tb_net/widgets/register_form.dart';
 
 class Register extends StatelessWidget {
+  final String invitedBy;
+  const Register({Key key, this.invitedBy}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     GlobalPref pref = GlobalPref.of(context);
@@ -59,7 +60,9 @@ class Register extends StatelessWidget {
                   top: pref.ph(20),
                   left: 15,
                   right: 15,
-                  child: RegisterForm(),
+                  child: RegisterForm(
+                    invitedBy: invitedBy,
+                  ),
                 ),
               ],
             ),
