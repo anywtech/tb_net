@@ -24,9 +24,9 @@ class InputText extends StatelessWidget {
 
   const InputText({
     Key key,
-    @required this.onChanged,
-    @required this.validator,
-    @required this.controller,
+    this.onChanged,
+    this.validator,
+    this.controller,
     this.isObscure = false,
     this.keyboardType = TextInputType.text,
     this.prefixIcon,

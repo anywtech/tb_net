@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:tb_net/pages/dispatcher.dart';
 import 'package:tb_net/providers/home.dart';
 import 'package:tb_net/providers/login_form.dart';
-import 'package:tb_net/services/udc_invitation.dart';
+import 'package:tb_net/providers/register_form.dart';
 import 'package:tb_net/utils/locator.dart';
 import 'package:tb_net/utils/routers.dart';
 
@@ -25,6 +25,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<LoginFormProvider>(
           create: (_) => LoginFormProvider(),
+        ),
+        ChangeNotifierProvider<RegisterFormProvider>(
+          create: (_) => RegisterFormProvider(),
         ),
         ChangeNotifierProvider<HomeProvider>(create: (_) => HomeProvider()),
       ],
@@ -50,6 +53,12 @@ class MyApp extends StatelessWidget {
             headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
             headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
             bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hind'),
+          ),
+          textButtonTheme: TextButtonThemeData(
+            style: TextButton.styleFrom(
+              primary: Colors.orange,
+              backgroundColor: Colors.transparent,
+            ),
           ),
         ),
         home: Dispatcher(),

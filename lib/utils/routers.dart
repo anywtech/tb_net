@@ -5,10 +5,12 @@ import 'package:tb_net/pages/home.dart';
 import 'package:tb_net/pages/login.dart';
 import 'package:tb_net/pages/news.dart';
 import 'package:tb_net/pages/profile.dart';
+import 'package:tb_net/pages/register.dart';
 
 //route name of pages
 class RouterPages {
   static const String Login = "Login";
+  static const String Register = "Register";
   static const String Home = "Home";
   static const String Error = "Error";
   static const String Profile = "Profile";
@@ -33,6 +35,9 @@ class Routers {
     switch (settings.name) {
       case RouterPages.Login:
         return MaterialPageRoute(builder: (context) => Login());
+        break;
+      case RouterPages.Register:
+        return MaterialPageRoute(builder: (context) => Register());
         break;
       case RouterPages.Home:
         return MaterialPageRoute(builder: (context) => Home());

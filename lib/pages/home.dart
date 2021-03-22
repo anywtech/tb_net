@@ -7,6 +7,7 @@ import 'package:tb_net/providers/home.dart';
 import 'package:tb_net/providers/login_form.dart';
 import 'package:tb_net/services/udc_invitation.dart';
 import 'package:tb_net/storage/storage_manager.dart';
+import 'package:tb_net/utils/common_value.dart';
 import 'package:tb_net/utils/locator.dart';
 import 'package:tb_net/utils/routers.dart';
 
@@ -94,9 +95,12 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-                        var shareLink = await locator
-                            .get<UdcInvitation>()
-                            .createInvitation('userid1');
+                        var shareLink =
+                            await locator.get<UdcInvitation>().createLink(
+                                  CommonValue.LinkTypeInvite,
+                                  RouterPages.News,
+                                  'userid1',
+                                );
                         /* showDialog(
                           context: context,
                           barrierDismissible: true,

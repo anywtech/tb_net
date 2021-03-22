@@ -35,10 +35,13 @@ class UdcInvitation {
   }
 
   //create a link
-  Future<String> createInvitation(String inviterCode) async {
+  //type = invite, share
+  Future<String> createLink(String type,
+      [String path, String inviterCode, String sid, String pid]) async {
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: 'https://awtech.page.link',
-      link: Uri.parse('https://awtech.com/invite?code=$inviterCode'),
+      link: Uri.parse(
+          'https://awtech.com/linkparams?type=$type&path=$path&code=$inviterCode&sid=$sid&pid=$pid'),
       androidParameters: AndroidParameters(
         packageName: 'com.anywtech.tb_net',
         //minimumVersion: 0,

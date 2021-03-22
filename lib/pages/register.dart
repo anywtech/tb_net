@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tb_net/utils/global_pref.dart';
 import 'package:tb_net/widgets/login_form.dart';
+import 'package:tb_net/widgets/register_form.dart';
 
-class Login extends StatelessWidget {
+class Register extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GlobalPref pref = GlobalPref.of(context);
@@ -34,7 +35,7 @@ class Login extends StatelessWidget {
                 ],
               ),
             ),
-            height: pref.height,
+            height: GlobalPref.of(context).height,
             child: Stack(
               alignment: Alignment.center,
               children: [
@@ -58,7 +59,7 @@ class Login extends StatelessWidget {
                   top: pref.ph(20),
                   left: 15,
                   right: 15,
-                  child: LoginForm(),
+                  child: RegisterForm(),
                 ),
               ],
             ),
