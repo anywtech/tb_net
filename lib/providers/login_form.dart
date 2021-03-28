@@ -1,6 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tb_net/services/auth.dart';
+import 'package:tb_net/services/udc_invitation.dart';
+import 'package:tb_net/storage/storage_manager.dart';
+import 'package:tb_net/utils/locator.dart';
 import 'package:tb_net/utils/processing_dialogue.dart';
 import 'package:tb_net/utils/routers.dart';
 
@@ -32,8 +36,6 @@ class LoginFormProvider extends ChangeNotifier {
 
   @override
   void dispose() {
-    phoneControl.dispose();
-    passwordControl.dispose();
     _currentUser = "";
     super.dispose();
   }
@@ -44,7 +46,62 @@ class LoginFormProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  initValue() {
+    phoneControl.clear();
+    passwordControl.clear();
+    _currentUser = "";
+    //_linkPath = null;
+    //notifyListeners();
+  }
+
+  setRedirectLink(BuildContext context, String from) {
+    var linkpath = locator.get<UdcInvitation>().linkPath;
+    if (from == RouterPages.Home) {
+      if (linkpath != null && linkpath["path"] != RouterPages.Register) {
+        // ProcessingDialogue.show(context);
+        Future.delayed(Duration(milliseconds: 50), () {
+          if (Navigator.canPop(context)) {
+            Navigator.of(context).pop();
+          }
+          Navigator.of(context)
+              .pushNamed(linkpath["path"], arguments: linkpath["code"]);
+        });
+      }
+    }
+    if (from == RouterPages.Login) {
+      if (linkpath != null && linkpath["path"] == RouterPages.Register) {
+        Future.delayed(Duration(milliseconds: 20), () {
+          Navigator.of(context)
+              .popAndPushNamed(linkpath["path"], arguments: linkpath["code"]);
+        });
+      }
+    }
+  }
+
   forgetPassword() {}
+
+  signOff(BuildContext context) async {
+    initValue();
+    setUser("");
+    await locator.get<StorageManager>().reset("token");
+    locator.get<UdcInvitation>().dispose();
+    Navigator.pushNamedAndRemoveUntil(
+        context, RouterPages.Dispatcher, (_) => false);
+    if (Navigator.of(context).canPop()) {
+      Navigator.of(context).pop();
+    }
+  }
+
+  Future<String> onResume() async {
+    var login = await locator.get<StorageManager>().get("token");
+    if (login == null || login == "") {
+      setUser("");
+    } else {
+      setUser("tempuser");
+    }
+
+    return login;
+  }
 
   submit(BuildContext context) async {
     try {

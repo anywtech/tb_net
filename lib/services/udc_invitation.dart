@@ -1,14 +1,18 @@
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:tb_net/utils/common_value.dart';
 import 'package:tb_net/utils/logs.dart';
-import 'package:tb_net/utils/routers.dart';
 
 class UdcInvitation {
-  Future initUdcInvitaion(BuildContext context) async {
+  Map linkPath;
+
+  dispose() {
+    linkPath = null;
+  }
+
+  initUdcInvitaion() async {
     FirebaseDynamicLinks.instance.onLink(
         onSuccess: (PendingDynamicLinkData data) async {
-      _handleLinks(data, context);
+      return _handleLinks(data);
     }, onError: (OnLinkErrorException e) async {
       //  print('onLinkError');
       Logs.p.e(e.message);
@@ -16,24 +20,33 @@ class UdcInvitation {
 
     final PendingDynamicLinkData data =
         await FirebaseDynamicLinks.instance.getInitialLink();
-    _handleLinks(data, context);
+    return _handleLinks(data);
   }
 
-  void _handleLinks(PendingDynamicLinkData data, BuildContext context) {
+  _handleLinks(PendingDynamicLinkData data) {
     final Uri naviLink = data?.link;
     if (naviLink != null) {
-      var linkType = naviLink.pathSegments.contains('linktype');
+      var linkparams = naviLink.pathSegments.contains('linkparams');
 
-      if (linkType) {
-        var lType = naviLink.queryParameters['linkType'];
+      if (linkparams) {
+        var linkType = naviLink.queryParameters['linktype'];
 
-        if (lType == CommonValue.LinkTypeInvite) {
-          var code = naviLink.queryParameters['inviteCode'];
+        if (linkType == CommonValue.LinkTypeInvite) {
+          var code = naviLink.queryParameters['code'];
           var path = naviLink.queryParameters['path'];
           if (code != null) {
-            Navigator.of(context).pushNamed(path, arguments: code);
+            linkPath = {"path": path, "code": code};
+            return linkPath;
           }
-        } else if (lType == CommonValue.LinkTypeShare) {}
+        } else if (linkType == CommonValue.LinkTypeShare) {
+          var code = naviLink.queryParameters['code'];
+          print('code is $code');
+          var path = naviLink.queryParameters['path'];
+          if (code != null) {
+            linkPath = {"path": path, "code": code};
+            return linkPath;
+          }
+        }
       }
     }
   }

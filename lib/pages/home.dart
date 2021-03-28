@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,13 +13,16 @@ import 'package:tb_net/utils/locator.dart';
 import 'package:tb_net/utils/routers.dart';
 
 class Home extends StatefulWidget {
+  /* final linkpath;
+
+  const Home({Key key, this.linkpath}) : super(key: key);
+ */
   @override
   _HomeState createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> with WidgetsBindingObserver {
   var currentUser;
-  Timer linkTimer;
 
   @override
   void initState() {
@@ -26,30 +30,32 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
         Provider.of<LoginFormProvider>(context, listen: false).currentUser;
     //get the default locale settings
     Provider.of<HomeProvider>(context, listen: false).getLocale();
-    //invitation link page
-    locator.get<UdcInvitation>().initUdcInvitaion(context);
-    // WidgetsBinding.instance.addObserver(this);
+
+    //get the link path
+    Provider.of<LoginFormProvider>(context, listen: false)
+        .setRedirectLink(context, RouterPages.Home);
+
+    WidgetsBinding.instance.addObserver(this);
     super.initState();
   }
-/* 
+
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    print(state);
     if (state == AppLifecycleState.resumed) {
-      linkTimer = new Timer(const Duration(milliseconds: 1000), () {
-        //invitation link page
-        locator.get<UdcInvitation>().initUdcInvitaion(context);
+      // await locator.get<UdcInvitation>().initUdcInvitaion();
+      Future.delayed(Duration(milliseconds: 200), () {
+        Provider.of<LoginFormProvider>(context, listen: false)
+            .setRedirectLink(context, RouterPages.Home);
       });
     }
-  } */
+  }
 
   @override
   void dispose() {
     currentUser = null;
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
-    /*   WidgetsBinding.instance.removeObserver(this);
-    if (linkTimer != null) {
-      linkTimer.cancel();
-    } */
   }
 
   @override
@@ -90,8 +96,8 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                 bottom: 0,
                 right: 0,
                 left: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Wrap(
+                  // mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     ElevatedButton(
                       onPressed: () async {
@@ -114,6 +120,24 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
                         );
                       },
                       child: Text('Invite a friend'),
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all<Color>(Colors.green)),
+                    ),
+                    ElevatedButton(
+                      onPressed: () async {
+                        var shareLink =
+                            await locator.get<UdcInvitation>().createLink(
+                                  CommonValue.LinkTypeShare,
+                                  RouterPages.News,
+                                  'page1',
+                                );
+
+                        await Share.share(
+                          shareLink,
+                        );
+                      },
+                      child: Text('share a page'),
                       style: ButtonStyle(
                           backgroundColor:
                               MaterialStateProperty.all<Color>(Colors.green)),

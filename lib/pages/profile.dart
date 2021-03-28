@@ -70,10 +70,8 @@ class _ProfileState extends State<Profile> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    await locator.get<StorageManager>().reset("token");
-
-                    Navigator.pushNamedAndRemoveUntil(
-                        context, RouterPages.Login, (_) => false);
+                    Provider.of<LoginFormProvider>(context, listen: false)
+                        .signOff(context);
                   },
                   child: Text('log off'),
                 ),

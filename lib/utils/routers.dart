@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tb_net/pages/chat.dart';
+import 'package:tb_net/pages/dispatcher.dart';
 import 'package:tb_net/pages/error.dart';
 import 'package:tb_net/pages/home.dart';
 import 'package:tb_net/pages/login.dart';
@@ -9,6 +10,7 @@ import 'package:tb_net/pages/register.dart';
 
 //route name of pages
 class RouterPages {
+  static const String Dispatcher = "Dispatcher";
   static const String Login = "Login";
   static const String Register = "Register";
   static const String Home = "Home";
@@ -33,6 +35,9 @@ class Routers {
     //MaterialPageRoute(builder: (context) => Login());
     // or MaterialPageRoute(builder: (context) => Login(parm: settings.arguments));
     switch (settings.name) {
+      case RouterPages.Dispatcher:
+        return MaterialPageRoute(builder: (context) => Dispatcher());
+        break;
       case RouterPages.Login:
         return MaterialPageRoute(builder: (context) => Login());
         break;
