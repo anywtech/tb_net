@@ -7,6 +7,7 @@ import 'package:tb_net/pages/login.dart';
 import 'package:tb_net/pages/news.dart';
 import 'package:tb_net/pages/profile.dart';
 import 'package:tb_net/pages/register.dart';
+import 'package:tb_net/pages/setting_profile.dart';
 
 //route name of pages
 class RouterPages {
@@ -18,10 +19,11 @@ class RouterPages {
   static const String Profile = "Profile";
   static const String News = "News";
   static const String Chat = "Chat";
+  static const String SettingProfile = "SettingProfile";
 }
 
 class Routers {
-  static final GlobalKey<NavigatorState> navKey = GlobalKey<NavigatorState>();
+  /*  static final GlobalKey<NavigatorState> navKey = GlobalKey<NavigatorState>();
 
   static Future<dynamic> navTo(String routeName, {Object args}) {
     return navKey.currentState.pushNamed(routeName, arguments: args);
@@ -30,7 +32,7 @@ class Routers {
   static navBack() {
     return navKey.currentState.pop();
   }
-
+ */
   static MaterialPageRoute materialPageRoute(RouteSettings settings) {
     //MaterialPageRoute(builder: (context) => Login());
     // or MaterialPageRoute(builder: (context) => Login(parm: settings.arguments));
@@ -52,6 +54,9 @@ class Routers {
         break;
       case RouterPages.Profile:
         return MaterialPageRoute(builder: (context) => Profile());
+        break;
+      case RouterPages.SettingProfile:
+        return MaterialPageRoute(builder: (context) => SettingProfile());
         break;
       case RouterPages.News:
         return MaterialPageRoute(
