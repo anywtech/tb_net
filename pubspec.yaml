@@ -44,6 +44,8 @@ dependencies:
   firebase_core: ^1.0.1
   share_plus: ^2.0.0
   flutter_native_contact_picker: ^0.0.1
+  country_code_picker: ^2.0.1
+  flutter_slidable: ^0.5.7
 
 
 dev_dependencies:

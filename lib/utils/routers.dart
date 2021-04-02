@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tb_net/pages/deliver_address.dart';
 import 'package:tb_net/pages/chat.dart';
 import 'package:tb_net/pages/dispatcher.dart';
 import 'package:tb_net/pages/error.dart';
@@ -6,8 +7,10 @@ import 'package:tb_net/pages/home.dart';
 import 'package:tb_net/pages/login.dart';
 import 'package:tb_net/pages/news.dart';
 import 'package:tb_net/pages/profile.dart';
+import 'package:tb_net/pages/profile_settings/account/setting_email.dart';
+import 'package:tb_net/pages/profile_settings/account/setting_mobile.dart';
+import 'package:tb_net/pages/profile_settings/account/setting_profile.dart';
 import 'package:tb_net/pages/register.dart';
-import 'package:tb_net/pages/setting_profile.dart';
 
 //route name of pages
 class RouterPages {
@@ -19,7 +22,11 @@ class RouterPages {
   static const String Profile = "Profile";
   static const String News = "News";
   static const String Chat = "Chat";
-  static const String SettingProfile = "SettingProfile";
+  static const String SettingProfile = "Profile and Security";
+  static const String SettingMobile = "Mobile";
+  static const String SettingEmail = "Email";
+  static const String SettingPassword = "Password";
+  static const String DelieverAddress = "Address";
 }
 
 class Routers {
@@ -57,6 +64,15 @@ class Routers {
         break;
       case RouterPages.SettingProfile:
         return MaterialPageRoute(builder: (context) => SettingProfile());
+        break;
+      case RouterPages.SettingMobile:
+        return MaterialPageRoute(builder: (context) => SettingMobile());
+        break;
+      case RouterPages.SettingEmail:
+        return MaterialPageRoute(builder: (context) => SettingEmail());
+        break;
+      case RouterPages.DelieverAddress:
+        return MaterialPageRoute(builder: (context) => DelieverAddress());
         break;
       case RouterPages.News:
         return MaterialPageRoute(

@@ -63,19 +63,25 @@ class SettingProfile extends StatelessWidget {
                 isEditable: true,
               ),
               SettingListile(
-                tapEvent: () {},
+                tapEvent: () {
+                  Navigator.of(context).pushNamed(RouterPages.SettingMobile);
+                },
                 title: 'Mobile',
                 values: '+1 123******9',
                 isEditable: true,
               ),
               SettingListile(
-                tapEvent: () {},
+                tapEvent: () {
+                  Navigator.of(context).pushNamed(RouterPages.SettingEmail);
+                },
                 title: 'E-mail',
-                values: 'email@alizii.com',
+                values: 'email@alizii.com'.replaceRange(3, 12, "******"),
                 isEditable: true,
               ),
               SettingListile(
-                tapEvent: () {},
+                tapEvent: () {
+                  Navigator.of(context).pushNamed(RouterPages.DelieverAddress);
+                },
                 title: 'Address',
                 values: '',
                 isEditable: true,
@@ -113,6 +119,7 @@ class SettingProfile extends StatelessWidget {
                 height: 200,
                 child: ListTile(
                   title: TextField(
+                    autofocus: true,
                     cursorColor: Colors.grey,
                     decoration: InputDecoration(
                       hintStyle: TextStyle(fontSize: 17),

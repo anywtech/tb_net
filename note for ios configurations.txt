@@ -13,3 +13,12 @@ To enable localization for iOS apps, extend ios/Runner/Info.plist file with supp
 
 
 2. Dynamiclink IOS configure
+
+3. horizontal vertical screen 
+<array>
+    <string>UIInterfaceOrientationPortrait</string>
+</array>
+
+https://pub.dev/packages/orientation/example
+https://github.com/simplezhli/flutter_deer
+
