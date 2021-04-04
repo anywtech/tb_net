@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:tb_net/models/address.dart';
+import 'package:tb_net/utils/form_dialogue.dart';
+import 'package:tb_net/widgets/address/address_form.dart';
+import 'package:tb_net/widgets/delete_confirm_dialogue.dart';
 import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/address/address_card.dart';
+import 'package:tb_net/widgets/input_text.dart';
 
-class DelieverAddress extends StatefulWidget {
-  @override
-  _DelieverAddressState createState() => _DelieverAddressState();
-}
-
-class _DelieverAddressState extends State<DelieverAddress> {
+class DelieverAddress extends StatelessWidget {
   final List<Address> addrItems = List.generate(
     10,
     (i) => Address(
@@ -38,83 +38,95 @@ class _DelieverAddressState extends State<DelieverAddress> {
           width: double.infinity,
           height: MediaQuery.of(context).size.height - 80,
           padding: EdgeInsets.all(15.0),
-          child: ListView(
-            children: addrItems.map((addr) {
-              return Slidable(
-                  key: Key(addr.p),
-                  child: VerticalAddressCard(address: addr),
-                  dismissal: SlidableDismissal(
-                    child: SlidableDrawerDismissal(),
-                    onWillDismiss: (actionType) {
-                      return showDialog<bool>(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Delete'),
-                            content: Text('Item will be deleted'),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('Cancel'),
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
+          child: Stack(
+            children: [
+              ListView.builder(
+                physics: AlwaysScrollableScrollPhysics(
+                  parent: BouncingScrollPhysics(),
+                ),
+                itemCount: addrItems.length + 1,
+                itemBuilder: (_, int index) => index == addrItems.length
+                    ? Container(
+                        height: 0,
+                      )
+                    : Slidable(
+                        key: Key(index.toString()),
+                        child: AddressCard(address: addrItems[index]),
+                        dismissal: SlidableDismissal(
+                          child: SlidableDrawerDismissal(),
+                          onWillDismiss: (actionType) {
+                            return showDialog(
+                              context: context,
+                              builder: (context) {
+                                return DeleteConfirmDialog(
+                                  cancleEvent: () =>
+                                      Navigator.of(context).pop(false),
+                                  okEvent: () =>
+                                      Navigator.of(context).pop(true),
+                                );
+                              },
+                            );
+                          },
+                          onDismissed: (actionType) {
+                            /*   setState(() {
+                          addrItems.remove(addr);
+                        }); */
+                          },
+                        ),
+                        actionPane: SlidableBehindActionPane(),
+                        actionExtentRatio: 1 / 4,
+                        secondaryActions: <Widget>[
+                            IconSlideAction(
+                              caption: 'Edit',
+                              color: Colors.grey.shade200,
+                              icon: Icons.edit,
+                              onTap: () => _showSnackBar(context, 'Edit'),
+                            ),
+                            IconSlideAction(
+                              caption: 'Delete',
+                              color: Colors.red,
+                              icon: Icons.delete,
+                              onTap: () => showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return DeleteConfirmDialog(
+                                    cancleEvent: () =>
+                                        Navigator.of(context).pop(false),
+                                    okEvent: () =>
+                                        Navigator.of(context).pop(true),
+                                  );
+                                },
                               ),
-                              TextButton(
-                                child: Text('Ok'),
-                                onPressed: () =>
-                                    Navigator.of(context).pop(true),
-                              ),
-                            ],
-                          );
-                        },
+                            ),
+                          ]),
+              ),
+              Positioned(
+                bottom: 0,
+                right: 0,
+                left: 0,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(50),
+                    color: Colors.orange,
+                  ),
+                  child: TextButton(
+                    onPressed: () {
+                      FormDialogue.show(
+                        context,
+                        AddressForm(),
                       );
                     },
-                    onDismissed: (actionType) {
-                      setState(() {
-                        addrItems.remove(addr);
-                      });
-                    },
-                  ),
-                  actionPane: SlidableBehindActionPane(),
-                  actionExtentRatio: 1 / 4,
-                  secondaryActions: <Widget>[
-                    IconSlideAction(
-                      caption: 'Edit',
-                      color: Colors.grey.shade200,
-                      icon: Icons.edit,
-                      onTap: () => _showSnackBar(context, 'Edit'),
-                    ),
-                    IconSlideAction(
-                      caption: 'Delete',
-                      color: Colors.red,
-                      icon: Icons.delete,
-                      onTap: () => showDialog<bool>(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title: Text('Delete'),
-                            content: Text('Item will be deleted'),
-                            actions: <Widget>[
-                              TextButton(
-                                child: Text('Cancel'),
-                                onPressed: () =>
-                                    Navigator.of(context).pop(false),
-                              ),
-                              TextButton(
-                                  child: Text('Ok'),
-                                  onPressed: () {
-                                    Navigator.of(context).pop(true);
-                                    setState(() {
-                                      addrItems.remove(addr);
-                                    });
-                                    _showSnackBar(context, 'Delete');
-                                  }),
-                            ],
-                          );
-                        },
+                    child: Text(
+                      'NEW ADDRESS',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
                       ),
                     ),
-                  ]);
-            }).toList(),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -123,75 +135,5 @@ class _DelieverAddressState extends State<DelieverAddress> {
 
   void _showSnackBar(BuildContext context, String text) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
-  }
-}
-
-class VerticalAddressCard extends StatelessWidget {
-  VerticalAddressCard({this.address});
-  final Address address;
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Slidable.of(context)?.renderingMode == SlidableRenderingMode.none
-            ? Slidable.of(context)?.open(actionType: SlideActionType.secondary)
-            : Slidable.of(context)?.close();
-      },
-      child: Container(
-        width: double.infinity,
-        color: Colors.white,
-        padding: EdgeInsets.only(bottom: 25.0),
-        child: Column(
-          children: [
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 8),
-              child: Text(
-                address.a,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                address.d
-                    ? Text(
-                        address.c.length > 12
-                            ? address.c.substring(0, 12)
-                            : address.c,
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      )
-                    : Text(
-                        address.c.length > 22
-                            ? address.c.substring(0, 22)
-                            : address.c,
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                Text(address.c.length > 12 ? '...  ' : '  '),
-                Text(
-                  address.p.length > 22
-                      ? '${address.p.substring(0, 22)}...   '
-                      : '${address.p}   ',
-                  style: TextStyle(color: Colors.orange),
-                ),
-                address.d
-                    ? Container(
-                        padding: EdgeInsets.symmetric(horizontal: 5.0),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.orange, width: 1.0),
-                          borderRadius: BorderRadius.circular(3),
-                        ),
-                        child: Text(
-                          'default',
-                          style: TextStyle(color: Colors.orange, fontSize: 10),
-                        ),
-                      )
-                    : Container(),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
   }
 }

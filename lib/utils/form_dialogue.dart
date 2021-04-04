@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 
-abstract class ProcessingDialogue {
-  static show(BuildContext context) {
+abstract class FormDialogue {
+  static show(BuildContext context, Widget childWidget) {
     showCupertinoModalPopup(
         context: context,
         builder: (_) {
@@ -13,7 +12,7 @@ abstract class ProcessingDialogue {
               height: double.infinity,
               color: Colors.white.withOpacity(0.5),
               child: Center(
-                child: const CircularProgressIndicator(),
+                child: childWidget,
               ),
             ),
             onWillPop: () async => false,
@@ -23,9 +22,5 @@ abstract class ProcessingDialogue {
 
   static dismiss(BuildContext context) {
     Navigator.pop(context);
-  }
-
-  static toastcontent(BuildContext context, String msg) {
-    Fluttertoast.showToast(msg: msg);
   }
 }

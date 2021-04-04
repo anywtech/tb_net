@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tb_net/utils/routers.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:tb_net/widgets/mobile_textfiled.dart';
 
 class SettingMobile extends StatefulWidget {
   @override
@@ -33,35 +34,7 @@ class _SettingMobileState extends State<SettingMobile> {
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 15.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: ListTile(
-                  leading: CountryCodePicker(
-                    padding: EdgeInsets.all(0),
-                    onChanged: (e) => print(e.toLongString()),
-                    initialSelection: 'CA',
-                    favorite: ['US', 'CN'],
-                    showFlagDialog: true,
-                    comparator: (a, b) => b.name.compareTo(a.name),
-                    onInit: (code) => print(
-                        "on init ${code.name} ${code.dialCode} ${code.name}"),
-                  ),
-                  title: TextField(
-                    scrollPadding: EdgeInsets.all(0),
-                    autofocus: true,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(fontSize: 17),
-                      hintText: 'Current Mobile Number',
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
+              MobileTextField(),
               Container(
                 margin: EdgeInsets.only(bottom: 15.0),
                 decoration: BoxDecoration(
@@ -115,7 +88,7 @@ class _SettingMobileState extends State<SettingMobile> {
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              Container(
+              /* Container(
                 margin: EdgeInsets.only(bottom: 15.0),
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
@@ -143,7 +116,8 @@ class _SettingMobileState extends State<SettingMobile> {
                     ),
                   ),
                 ),
-              ),
+              ), */
+              MobileTextField(),
               Container(
                 width: double.infinity,
                 height: 40,

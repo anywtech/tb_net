@@ -22,3 +22,7 @@ To enable localization for iOS apps, extend ios/Runner/Info.plist file with supp
 https://pub.dev/packages/orientation/example
 https://github.com/simplezhli/flutter_deer
 
+4. 群裂变， 5%  - 》 
+1)安全圈  5-10 ，
+2)大使 不限， 按推荐网络，  0， 1 两级 比例 ， 实际采购的直接推荐 最高比例， 间接获取剩余比例
+3)首次开通会员费用100， 佣金抵扣， 佣金按照比例收取 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tb_net/pages/deliver_address.dart';
 import 'package:tb_net/pages/chat.dart';
 import 'package:tb_net/pages/dispatcher.dart';
+import 'package:tb_net/pages/edit_address.dart';
 import 'package:tb_net/pages/error.dart';
 import 'package:tb_net/pages/home.dart';
 import 'package:tb_net/pages/login.dart';
@@ -27,6 +28,7 @@ class RouterPages {
   static const String SettingEmail = "Email";
   static const String SettingPassword = "Password";
   static const String DelieverAddress = "Address";
+  static const String EditingAddress = "EditingAddress";
 }
 
 class Routers {
@@ -73,6 +75,12 @@ class Routers {
         break;
       case RouterPages.DelieverAddress:
         return MaterialPageRoute(builder: (context) => DelieverAddress());
+        break;
+      case RouterPages.EditingAddress:
+        return MaterialPageRoute(
+            builder: (context) => EditingAddress(
+                  type: settings.arguments,
+                ));
         break;
       case RouterPages.News:
         return MaterialPageRoute(
