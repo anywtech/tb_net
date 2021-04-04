@@ -20,35 +20,41 @@ class AddressForm extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InputText(
-                    labeltext: 'Contact',
-                  ),
-                  const SizedBox(
-                    height: 30,
+                  ListTile(
+                    title: InputText(
+                      hintText: 'contact',
+                    ),
                   ),
                   MobileTextField(),
-                  const SizedBox(
-                    height: 30,
+                  ListTile(
+                    title: InputText(
+                      hintText: 'region',
+                    ),
                   ),
-                  InputText(
-                    labeltext: 'Region',
+                  ListTile(
+                    title: Container(
+                      child: Stack(children: [
+                        InputText(
+                          hintText: 'detail address',
+                        ),
+                        Positioned(
+                            top: 0,
+                            bottom: 0,
+                            right: 10,
+                            child: Icon(
+                              Icons.location_searching,
+                              color: Colors.orange,
+                            )),
+                      ]),
+                    ),
                   ),
-                  const SizedBox(
-                    height: 30,
-                  ),
-                  InputText(
-                    labeltext: 'Detail Address',
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Container(
-                    child: Row(
+                  ListTile(
+                    title: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
                           addrFm.checkAsDefault
-                              ? 'Set as Default Address'
+                              ? 'Default Address'
                               : 'Not Default Address',
                         ),
                         Semantics(

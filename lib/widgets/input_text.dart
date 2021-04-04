@@ -9,6 +9,7 @@ class InputText extends StatelessWidget {
   final bool autoFocus;
   final IconData prefixIcon;
   final IconData suffixIcon;
+  final Widget suffix;
   final String hintText;
   final String labeltext;
   final bool isEnabled;
@@ -43,6 +44,7 @@ class InputText extends StatelessWidget {
     this.errorBorderColors = Colors.red,
     this.textFieldWidth = 0.0,
     this.cursorColor = Colors.grey,
+    this.suffix,
   }) : super(key: key);
 
   @override
@@ -56,15 +58,18 @@ class InputText extends StatelessWidget {
       readOnly: isReadOnly,
       autofocus: autoFocus,
       cursorColor: cursorColor,
-      decoration: new InputDecoration(
-        prefixIcon: Icon(prefixIcon),
-        suffixIcon: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: IconButton(
-            icon: Icon(suffixIcon),
-            onPressed: suffixIconEvent,
-          ),
-        ),
+      decoration: InputDecoration(
+        isDense: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        // suffixIconConstraints: BoxConstraints(maxHeight: 20),
+        prefixIcon: prefixIcon == null ? null : Icon(prefixIcon),
+        suffixIcon: suffixIcon == null
+            ? null
+            : GestureDetector(
+                child: Icon(suffixIcon),
+                onTap: suffixIconEvent,
+              ),
+        suffix: suffix,
         hintText: hintText,
         labelText: labeltext,
         enabled: isEnabled,

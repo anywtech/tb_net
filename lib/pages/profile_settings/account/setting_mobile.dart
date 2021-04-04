@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tb_net/utils/routers.dart';
-import 'package:country_code_picker/country_code_picker.dart';
+import 'package:tb_net/widgets/input_text.dart';
 import 'package:tb_net/widgets/mobile_textfiled.dart';
 
 class SettingMobile extends StatefulWidget {
@@ -18,6 +18,7 @@ class _SettingMobileState extends State<SettingMobile> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
           color: Colors.white,
           width: double.infinity,
@@ -34,51 +35,46 @@ class _SettingMobileState extends State<SettingMobile> {
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              MobileTextField(),
               Container(
-                margin: EdgeInsets.only(bottom: 15.0),
+                margin: EdgeInsets.only(bottom: 2.0),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: Colors.grey[200].withOpacity(.3),
+                  borderRadius: BorderRadius.circular(5),
+                ),
+                child: MobileTextField(),
+              ),
+              Container(
+                margin: EdgeInsets.only(bottom: 2.0),
+                decoration: BoxDecoration(
+                  color: Colors.grey[200].withOpacity(.3),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: ListTile(
-                  title: TextField(
-                    scrollPadding: EdgeInsets.all(0),
-                    autofocus: true,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(fontSize: 17),
-                      hintText: 'Binded Email',
-                      border: InputBorder.none,
-                    ),
+                  title: InputText(
+                    hintText: 'binded email',
                   ),
                 ),
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 35.0),
+                margin: EdgeInsets.only(bottom: 2.0),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: Colors.grey[200].withOpacity(.3),
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: ListTile(
-                  title: TextField(
-                    scrollPadding: EdgeInsets.all(0),
-                    autofocus: true,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(fontSize: 17),
-                      hintText: '',
-                      border: InputBorder.none,
-                    ),
+                  title: InputText(
+                    hintText: 'code from email',
                   ),
                   trailing: TextButton(
                     style: TextButton.styleFrom(
-                      side: BorderSide(color: Colors.orange, width: 1),
-                    ),
-                    child: Text('get code'),
+                        side: BorderSide(color: Colors.orange)),
                     onPressed: () {},
+                    child: Text('get code'),
                   ),
                 ),
+              ),
+              Divider(
+                height: 30,
               ),
               Container(
                 margin: EdgeInsets.only(bottom: 15.0),
@@ -88,36 +84,14 @@ class _SettingMobileState extends State<SettingMobile> {
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              /* Container(
-                margin: EdgeInsets.only(bottom: 15.0),
+              Container(
+                margin: EdgeInsets.only(bottom: 2.0),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: Colors.grey[200].withOpacity(.3),
                   borderRadius: BorderRadius.circular(5),
                 ),
-                child: ListTile(
-                  leading: CountryCodePicker(
-                    padding: EdgeInsets.all(0),
-                    onChanged: (e) => print(e.toLongString()),
-                    initialSelection: 'CA',
-                    favorite: ['US', 'CN'],
-                    showFlagDialog: true,
-                    comparator: (a, b) => b.name.compareTo(a.name),
-                    onInit: (code) => print(
-                        "on init ${code.name} ${code.dialCode} ${code.name}"),
-                  ),
-                  title: TextField(
-                    scrollPadding: EdgeInsets.all(0),
-                    autofocus: true,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(fontSize: 17),
-                      hintText: 'New Mobile Number',
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ), */
-              MobileTextField(),
+                child: MobileTextField(),
+              ),
               Container(
                 width: double.infinity,
                 height: 40,
