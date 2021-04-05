@@ -13,6 +13,7 @@ class InputText extends StatelessWidget {
   final String hintText;
   final String labeltext;
   final bool isEnabled;
+  final InputBorder border;
   final Color enabledBorderColor;
   final Color disabledBorderColors;
   final Color focusedBorderColors;
@@ -22,6 +23,7 @@ class InputText extends StatelessWidget {
   final String Function(String s) validator;
   final Color cursorColor;
   final void Function() suffixIconEvent;
+  final void Function() onTap;
 
   const InputText({
     Key key,
@@ -45,6 +47,8 @@ class InputText extends StatelessWidget {
     this.textFieldWidth = 0.0,
     this.cursorColor = Colors.grey,
     this.suffix,
+    this.onTap,
+    this.border,
   }) : super(key: key);
 
   @override
@@ -53,6 +57,7 @@ class InputText extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       controller: controller,
+      onTap: onTap,
       obscureText: isObscure,
       keyboardType: keyboardType,
       readOnly: isReadOnly,
@@ -73,17 +78,15 @@ class InputText extends StatelessWidget {
         hintText: hintText,
         labelText: labeltext,
         enabled: isEnabled,
+        border: border,
         enabledBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: enabledBorderColor, width: textFieldWidth),
+          borderSide: BorderSide(color: enabledBorderColor),
         ),
         disabledBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: disabledBorderColors, width: textFieldWidth),
+          borderSide: BorderSide(color: disabledBorderColors),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide:
-              BorderSide(color: focusedBorderColors, width: textFieldWidth),
+          borderSide: BorderSide(color: focusedBorderColors),
         ),
         errorBorder: OutlineInputBorder(
           borderSide:

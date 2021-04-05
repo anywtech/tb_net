@@ -12,6 +12,7 @@ import 'package:tb_net/pages/profile_settings/account/setting_email.dart';
 import 'package:tb_net/pages/profile_settings/account/setting_mobile.dart';
 import 'package:tb_net/pages/profile_settings/account/setting_profile.dart';
 import 'package:tb_net/pages/register.dart';
+import 'package:tb_net/pages/wallet.dart';
 
 //route name of pages
 class RouterPages {
@@ -29,6 +30,7 @@ class RouterPages {
   static const String SettingPassword = "Password";
   static const String DelieverAddress = "Address";
   static const String EditingAddress = "EditingAddress";
+  static const String Wallet = "Wallet";
 }
 
 class Routers {
@@ -81,6 +83,9 @@ class Routers {
             builder: (context) => EditingAddress(
                   type: settings.arguments,
                 ));
+        break;
+      case RouterPages.Wallet:
+        return MaterialPageRoute(builder: (context) => Wallet());
         break;
       case RouterPages.News:
         return MaterialPageRoute(

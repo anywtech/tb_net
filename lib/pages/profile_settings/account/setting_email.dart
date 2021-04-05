@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tb_net/utils/routers.dart';
 import 'package:country_code_picker/country_code_picker.dart';
+import 'package:tb_net/widgets/form_textfiled.dart';
 
 class SettingEmail extends StatefulWidget {
   @override
@@ -17,6 +18,7 @@ class _SettingEmailState extends State<SettingEmail> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
           color: Colors.white,
           width: double.infinity,
@@ -26,113 +28,59 @@ class _SettingEmailState extends State<SettingEmail> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 15.0),
-                //  color: Colors.green,
+                padding: EdgeInsets.only(bottom: 15.0),
                 child: Text(
                   'Current Email',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 15.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: ListTile(
-                  title: TextField(
-                    scrollPadding: EdgeInsets.all(0),
-                    autofocus: true,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(fontSize: 17),
-                      hintText: 'Current Email',
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 15.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: ListTile(
-                  leading: CountryCodePicker(
-                    padding: EdgeInsets.all(0),
-                    onChanged: (e) => print(e.toLongString()),
-                    initialSelection: 'CA',
-                    favorite: ['US', 'CN'],
-                    showFlagDialog: true,
-                    comparator: (a, b) => b.name.compareTo(a.name),
-                    onInit: (code) => print(
-                        "on init ${code.name} ${code.dialCode} ${code.name}"),
-                  ),
-                  title: TextField(
-                    scrollPadding: EdgeInsets.all(0),
-                    autofocus: true,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(fontSize: 17),
-                      hintText: 'Binded Mobile',
-                      border: InputBorder.none,
-                    ),
-                  ),
+              FormTextFiled(
+                  leading: false,
+                  trailing: false,
+                  hintText: 'enter current email'),
+              FormTextFiled(
+                leading: true,
+                trailing: false,
+                hintText: 'binded mobile',
+                leadingWidget: CountryCodePicker(
+                  padding: EdgeInsets.all(0),
+                  onChanged: (e) => print(e.toLongString()),
+                  initialSelection: 'CA',
+                  favorite: ['US', 'CN'],
+                  showFlagDialog: true,
+                  comparator: (a, b) => b.name.compareTo(a.name),
+                  onInit: (code) => print(
+                      "on init ${code.name} ${code.dialCode} ${code.name}"),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 35.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: ListTile(
-                  title: TextField(
-                    scrollPadding: EdgeInsets.all(0),
-                    autofocus: true,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(fontSize: 17),
-                      hintText: '',
-                      border: InputBorder.none,
-                    ),
+              FormTextFiled(
+                leading: false,
+                trailing: true,
+                trailingWidget: TextButton(
+                  style: TextButton.styleFrom(
+                    side: BorderSide(color: Colors.orange, width: 1),
                   ),
-                  trailing: TextButton(
-                    style: TextButton.styleFrom(
-                      side: BorderSide(color: Colors.orange, width: 1),
-                    ),
-                    child: Text('get code'),
-                    onPressed: () {},
-                  ),
+                  child: Text('get code'),
+                  onPressed: () {},
                 ),
               ),
+              const Divider(
+                height: 50,
+              ),
               Container(
-                margin: EdgeInsets.only(bottom: 15.0),
-                //  color: Colors.green,
+                padding: const EdgeInsets.only(bottom: 15.0),
                 child: Text(
                   'New Email',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 15.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: ListTile(
-                  title: TextField(
-                    scrollPadding: EdgeInsets.all(0),
-                    autofocus: true,
-                    cursorColor: Colors.grey,
-                    decoration: InputDecoration(
-                      hintStyle: TextStyle(fontSize: 17),
-                      hintText: 'Current Email',
-                      border: InputBorder.none,
-                    ),
-                  ),
-                ),
+              FormTextFiled(
+                leading: false,
+                trailing: false,
+                hintText: 'enter new email',
+              ),
+              const SizedBox(
+                height: 15,
               ),
               Container(
                 width: double.infinity,
@@ -142,7 +90,6 @@ class _SettingEmailState extends State<SettingEmail> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: TextButton(
-                  // style: TextButton.styleFrom(backgroundColor: Colors.blue),
                   child: Text(
                     'Bind',
                     style: TextStyle(color: Colors.white),
@@ -157,7 +104,7 @@ class _SettingEmailState extends State<SettingEmail> {
     );
   }
 }
-
+/* 
 class CustomDropDown extends StatelessWidget {
   final value;
   final List<String> itemsList;
@@ -198,3 +145,4 @@ class CustomDropDown extends StatelessWidget {
     );
   }
 }
+ */

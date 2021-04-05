@@ -87,7 +87,9 @@ class SettingProfile extends StatelessWidget {
                 isEditable: true,
               ),
               SettingListile(
-                tapEvent: () {},
+                tapEvent: () {
+                  Navigator.of(context).pushNamed(RouterPages.Wallet);
+                },
                 title: 'Wallet',
                 values: '',
                 isEditable: true,

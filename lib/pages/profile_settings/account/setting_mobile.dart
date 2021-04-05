@@ -1,5 +1,7 @@
+import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/form_textfiled.dart';
 import 'package:tb_net/widgets/input_text.dart';
 import 'package:tb_net/widgets/mobile_textfiled.dart';
 
@@ -28,69 +30,69 @@ class _SettingMobileState extends State<SettingMobile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                margin: EdgeInsets.only(bottom: 15.0),
-                //  color: Colors.green,
+                padding: EdgeInsets.only(bottom: 15.0),
                 child: Text(
                   'Current Mobile',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 2.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200].withOpacity(.3),
-                  borderRadius: BorderRadius.circular(5),
+              FormTextFiled(
+                leading: true,
+                trailing: false,
+                hintText: 'enter current mobile',
+                leadingWidget: CountryCodePicker(
+                  padding: EdgeInsets.all(0),
+                  onChanged: (e) => print(e.toLongString()),
+                  initialSelection: 'CA',
+                  favorite: ['US', 'CN'],
+                  showFlagDialog: true,
+                  comparator: (a, b) => b.name.compareTo(a.name),
+                  onInit: (code) => print(
+                      "on init ${code.name} ${code.dialCode} ${code.name}"),
                 ),
-                child: MobileTextField(),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 2.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200].withOpacity(.3),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: ListTile(
-                  title: InputText(
-                    hintText: 'binded email',
+              FormTextFiled(
+                  leading: false,
+                  trailing: false,
+                  hintText: 'enter binded email'),
+              FormTextFiled(
+                leading: false,
+                trailing: true,
+                trailingWidget: TextButton(
+                  style: TextButton.styleFrom(
+                    side: BorderSide(color: Colors.orange, width: 1),
                   ),
+                  child: Text('get code'),
+                  onPressed: () {},
                 ),
+              ),
+              const Divider(
+                height: 50,
               ),
               Container(
-                margin: EdgeInsets.only(bottom: 2.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200].withOpacity(.3),
-                  borderRadius: BorderRadius.circular(5),
-                ),
-                child: ListTile(
-                  title: InputText(
-                    hintText: 'code from email',
-                  ),
-                  trailing: TextButton(
-                    style: TextButton.styleFrom(
-                        side: BorderSide(color: Colors.orange)),
-                    onPressed: () {},
-                    child: Text('get code'),
-                  ),
-                ),
-              ),
-              Divider(
-                height: 30,
-              ),
-              Container(
-                margin: EdgeInsets.only(bottom: 15.0),
-                //  color: Colors.green,
+                padding: const EdgeInsets.only(bottom: 15.0),
                 child: Text(
                   'New Mobile',
                   style: TextStyle(fontWeight: FontWeight.w500),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.only(bottom: 2.0),
-                decoration: BoxDecoration(
-                  color: Colors.grey[200].withOpacity(.3),
-                  borderRadius: BorderRadius.circular(5),
+              FormTextFiled(
+                leading: true,
+                trailing: false,
+                hintText: 'enter new mobile',
+                leadingWidget: CountryCodePicker(
+                  padding: EdgeInsets.all(0),
+                  onChanged: (e) => print(e.toLongString()),
+                  initialSelection: 'CA',
+                  favorite: ['US', 'CN'],
+                  showFlagDialog: true,
+                  comparator: (a, b) => b.name.compareTo(a.name),
+                  onInit: (code) => print(
+                      "on init ${code.name} ${code.dialCode} ${code.name}"),
                 ),
-                child: MobileTextField(),
+              ),
+              const SizedBox(
+                height: 15,
               ),
               Container(
                 width: double.infinity,
@@ -100,7 +102,6 @@ class _SettingMobileState extends State<SettingMobile> {
                   borderRadius: BorderRadius.circular(5),
                 ),
                 child: TextButton(
-                  // style: TextButton.styleFrom(backgroundColor: Colors.blue),
                   child: Text(
                     'Bind',
                     style: TextStyle(color: Colors.white),

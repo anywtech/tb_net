@@ -47,7 +47,7 @@ class DelieverAddress extends StatelessWidget {
                 itemCount: addrItems.length + 1,
                 itemBuilder: (_, int index) => index == addrItems.length
                     ? Container(
-                        height: 0,
+                        height: 100,
                       )
                     : Slidable(
                         key: Key(index.toString()),
@@ -80,7 +80,10 @@ class DelieverAddress extends StatelessWidget {
                               caption: 'Edit',
                               color: Colors.grey.shade200,
                               icon: Icons.edit,
-                              onTap: () => _showSnackBar(context, 'Edit'),
+                              onTap: () => FormDialogue.show(
+                                context,
+                                AddressForm(),
+                              ), //_showSnackBar(context, 'Edit'),
                             ),
                             IconSlideAction(
                               caption: 'Delete',

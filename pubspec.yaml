@@ -46,6 +46,7 @@ dependencies:
   flutter_native_contact_picker: ^0.0.1
   country_code_picker: ^2.0.1
   flutter_slidable: ^0.5.7
+  country_state_city_picker: ^1.2.7
 
 
 dev_dependencies:
