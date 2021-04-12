@@ -179,7 +179,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             TextButton(
               child: Text('profile'),
               onPressed: () {
-                Navigator.pushNamed(context, RouterPages.Profile);
+                Navigator.pushNamed(context, RouterPages.ProfileNew);
               },
             ),
           ],

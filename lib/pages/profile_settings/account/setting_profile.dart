@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/setting_listile.dart';
 
 class SettingProfile extends StatelessWidget {
   updateNickname(BuildContext context, double height, String hintText) {}
@@ -13,16 +14,18 @@ class SettingProfile extends StatelessWidget {
         elevation: 0,
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Container(
           color: Colors.white,
           width: double.infinity,
-          height: MediaQuery.of(context).size.height - 80,
+          //height: MediaQuery.of(context).size.height - 80,
           padding: EdgeInsets.all(15.0),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                padding: EdgeInsets.only(top: 15, bottom: 15),
-                margin: EdgeInsets.only(bottom: 25),
+                padding: const EdgeInsets.only(top: 15, bottom: 15),
+                margin: const EdgeInsets.only(bottom: 25),
                 height: 100,
                 width: 100,
                 child: Align(
@@ -50,56 +53,55 @@ class SettingProfile extends StatelessWidget {
               ),
               SettingListile(
                 tapEvent: () {},
-                title: 'ALIZII ID',
-                values: '200010003000MMMM',
-                isEditable: false,
+                leading: Text('ALIZII ID'),
+                title: '200010003000MMMM',
+                trailing: false,
+                alignment: "Right",
               ),
               SettingListile(
                 tapEvent: () {
                   udpateNickname(context);
                 },
-                title: 'Nick name',
-                values: 'Vanessa',
-                isEditable: true,
+                leading: Text('Nick name'),
+                title: 'Vanessa',
+                alignment: "Right",
               ),
               SettingListile(
                 tapEvent: () {
                   Navigator.of(context).pushNamed(RouterPages.SettingMobile);
                 },
-                title: 'Mobile',
-                values: '+1 123******9',
-                isEditable: true,
+                leading: Text('Mobile'),
+                title: '+1 123******9',
+                alignment: "Right",
               ),
               SettingListile(
                 tapEvent: () {
                   Navigator.of(context).pushNamed(RouterPages.SettingEmail);
                 },
-                title: 'E-mail',
-                values: 'email@alizii.com'.replaceRange(3, 12, "******"),
-                isEditable: true,
+                leading: Text('E-mail'),
+                title: 'email@alizii.com'.replaceRange(3, 12, "******"),
+                alignment: "Right",
               ),
               SettingListile(
                 tapEvent: () {
                   Navigator.of(context).pushNamed(RouterPages.DelieverAddress);
                 },
-                title: 'Address',
-                values: '',
-                isEditable: true,
+                leading: Text('Address'),
+                alignment: "Right",
               ),
               SettingListile(
                 tapEvent: () {
                   Navigator.of(context).pushNamed(RouterPages.Wallet);
                 },
-                title: 'Wallet',
-                values: '',
-                isEditable: true,
+                leading: Text('Wallet'),
+                alignment: "Right",
               ),
               SettingListile(
                 tapEvent: () {},
-                title: 'Ceritfication',
-                values: 'Uncertified',
+                leading: Text('Ceritfication'),
+                title: 'Uncertified',
                 textStyle: TextStyle(color: Colors.red),
-                isEditable: true,
+                alignment: "Right",
               ),
             ],
           ),
@@ -145,47 +147,5 @@ class SettingProfile extends StatelessWidget {
             ),
           );
         });
-  }
-}
-
-class SettingListile extends StatelessWidget {
-  final Function tapEvent;
-  final String title;
-  final String values;
-  final TextStyle textStyle;
-  final bool isEditable;
-
-  const SettingListile({
-    this.tapEvent,
-    this.title,
-    this.values,
-    this.textStyle,
-    this.isEditable,
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: tapEvent,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 11.0),
-        child: Row(
-          children: [
-            Text(title),
-            Spacer(),
-            Text(
-              values,
-              style: textStyle,
-            ),
-            isEditable
-                ? Icon(Icons.chevron_right_outlined)
-                : SizedBox(
-                    width: 8.0,
-                  ),
-          ],
-        ),
-      ),
-    );
   }
 }

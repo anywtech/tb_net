@@ -47,6 +47,7 @@ dependencies:
   country_code_picker: ^2.0.1
   flutter_slidable: ^0.5.7
   country_state_city_picker: ^1.2.7
+  stretchy_header: ^2.0.0
 
 
 dev_dependencies:

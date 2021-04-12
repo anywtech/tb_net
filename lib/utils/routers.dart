@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tb_net/pages/deliver_address.dart';
 import 'package:tb_net/pages/chat.dart';
@@ -7,10 +8,14 @@ import 'package:tb_net/pages/error.dart';
 import 'package:tb_net/pages/home.dart';
 import 'package:tb_net/pages/login.dart';
 import 'package:tb_net/pages/news.dart';
+import 'package:tb_net/pages/notification_messages.dart';
 import 'package:tb_net/pages/profile.dart';
+import 'package:tb_net/pages/profile_banner_card/recent_viewed.dart';
+import 'package:tb_net/pages/profile_new.dart';
 import 'package:tb_net/pages/profile_settings/account/setting_email.dart';
 import 'package:tb_net/pages/profile_settings/account/setting_mobile.dart';
 import 'package:tb_net/pages/profile_settings/account/setting_profile.dart';
+import 'package:tb_net/pages/profile_settings/setting.dart';
 import 'package:tb_net/pages/register.dart';
 import 'package:tb_net/pages/wallet.dart';
 
@@ -31,6 +36,10 @@ class RouterPages {
   static const String DelieverAddress = "Address";
   static const String EditingAddress = "EditingAddress";
   static const String Wallet = "Wallet";
+  static const String Setting = "Setting";
+  static const String ProfileNew = "ProfileNew";
+  static const String NotificationMessages = "Messages";
+  static const String RecentViewed = "Recent Viewed";
 }
 
 class Routers {
@@ -65,6 +74,18 @@ class Routers {
         break;
       case RouterPages.Profile:
         return MaterialPageRoute(builder: (context) => Profile());
+        break;
+      case RouterPages.RecentViewed:
+        return MaterialPageRoute(builder: (context) => RecentViewed());
+        break;
+      case RouterPages.NotificationMessages:
+        return MaterialPageRoute(builder: (context) => NotificationMessages());
+        break;
+      case RouterPages.ProfileNew:
+        return MaterialPageRoute(builder: (context) => ProfileNew());
+        break;
+      case RouterPages.Setting:
+        return MaterialPageRoute(builder: (context) => Setting());
         break;
       case RouterPages.SettingProfile:
         return MaterialPageRoute(builder: (context) => SettingProfile());

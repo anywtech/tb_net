@@ -1,15 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:tb_net/utils/routers.dart';
+/* import 'package:provider/provider.dart';
 import 'package:tb_net/providers/home.dart';
 import 'package:tb_net/providers/login_form.dart';
-import 'package:tb_net/utils/routers.dart';
 import 'package:tb_net/widgets/home/locale_picker.dart';
 import 'package:tb_net/widgets/home/time_shower.dart';
 import 'package:tb_net/widgets/home/timer_stream.dart';
 
-import 'package:tb_net/generated/l10n.dart';
+import 'package:tb_net/generated/l10n.dart'; */
 
 class Profile extends StatefulWidget {
   @override
@@ -28,6 +26,7 @@ class _ProfileState extends State<Profile> {
         elevation: 0,
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: Stack(
             alignment: AlignmentDirectional.topCenter,
             clipBehavior: Clip.none,
@@ -67,7 +66,19 @@ class _ProfileState extends State<Profile> {
                           child: Stack(
                               alignment: const Alignment(0.5, -0.6),
                               children: [
-                                Icon(Icons.notifications),
+                                IconButton(
+                                    icon: Icon(Icons.edit),
+                                    onPressed: () {
+                                      Navigator.of(context).pushNamed(
+                                          RouterPages.SettingProfile);
+                                    }),
+                                GestureDetector(
+                                  child: Icon(Icons.notifications_none),
+                                  onTap: () {
+                                    Navigator.of(context).pushNamed(
+                                        RouterPages.NotificationMessages);
+                                  },
+                                ),
                                 CircleAvatar(
                                   radius: 3.0,
                                   backgroundColor: Colors.red,
@@ -86,6 +97,9 @@ class _ProfileState extends State<Profile> {
                     height: MediaQuery.of(context).size.height * 0.28,
                   ),
                   ListTile(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(RouterPages.Setting);
+                    },
                     tileColor: Colors.white,
                     leading: Icon(Icons.settings),
                     title: Text('Settings'),
@@ -222,7 +236,7 @@ class Rowcard extends StatelessWidget {
               ? Container()
               : Container(
                   padding:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 15.0),
+                      EdgeInsets.symmetric(vertical: 3.0, horizontal: 15.0),
                   color: color,
                   width: double.infinity,
                   child: Text(title),
@@ -232,14 +246,17 @@ class Rowcard extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Column(
-                  children: [
-                    Text(
-                      '3',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text('Likes'),
-                  ],
+                GestureDetector(
+                  onTap: () {},
+                  child: Column(
+                    children: [
+                      Text(
+                        '3',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      Text('Likes'),
+                    ],
+                  ),
                 ),
                 Column(
                   children: [
@@ -276,7 +293,7 @@ class Rowcard extends StatelessWidget {
     );
   }
 }
-
+/* 
 class NewWidget extends StatelessWidget {
   const NewWidget({
     Key key,
@@ -389,3 +406,4 @@ class NewWidget extends StatelessWidget {
     );
   }
 }
+ */
