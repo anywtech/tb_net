@@ -107,7 +107,9 @@ class _ProfileNewState extends State<ProfileNew> {
                       trailingText: "Likes",
                     ),
                     TwolineCard(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed(RouterPages.Following);
+                      },
                       leadingText: "3",
                       trailingText: "Following",
                     ),
