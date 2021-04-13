@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/footer.dart';
 import 'package:tb_net/widgets/input_text.dart';
 
 class NotificationMessages extends StatelessWidget {
@@ -85,20 +86,7 @@ class NotificationMessages extends StatelessWidget {
                 height: 1,
                 color: Colors.grey.withOpacity(0.1),
               ),
-              SizedBox(
-                height: 150,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 15,
-                      height: 15,
-                      decoration: BoxDecoration(color: Colors.orange),
-                    ),
-                    Text('  ALIZII - La Vie en Rose'),
-                  ],
-                ),
-              ),
+              Footer(),
             ],
           ),
         ),

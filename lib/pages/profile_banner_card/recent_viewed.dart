@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tb_net/models/viewed_card.dart';
 import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/footer.dart';
+import 'package:tb_net/widgets/prod/prod_item_listcard.dart';
+import 'package:tb_net/widgets/recent_viewed/recent_viewed_prod_card.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class RecentViewed extends StatelessWidget {
   @override
@@ -35,6 +38,69 @@ class RecentViewed extends StatelessWidget {
       },
     ];
 
+    final List<Map> recommendedItems = [
+      {
+        "image":
+            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRQuIiAihse1x_FMmnc6v0XHFLkmKK0n1lG9sKkI86xHM7N4ONr5kUNm99QtiSA7YU8jc&usqp=CAU",
+        "price": 10.99,
+        "name": "name1",
+        "desc": "desc",
+        "tags": [
+          "Special Offer",
+          "Presell",
+          "New Item",
+          "1"
+        ] //uniform with color defined
+      },
+      {
+        "image":
+            "https://www.jetsetter.com/wp-content/uploads/sites/7/2018/04/Yq6ObbTP-1-1380x690.jpeg",
+        "price": 10.99,
+        "name": "name1",
+        "desc": "desc",
+        "tags": ["1", "2", "3"] //uniform with color defined
+      },
+      {
+        "image":
+            "https://imagikcorp.com/wp-content/uploads/2016/04/airplanedisplay.jpg",
+        "price": 10.99,
+        "name": "name1",
+        "desc": "desc",
+        "tags": ["New Item"] //uniform with color defined
+      },
+      {
+        "image":
+            "https://media.cntraveler.com/photos/5fd26c4ddf72876c320b8001/16:9/w_2560%2Cc_limit/952456172",
+        "price": 10.99,
+        "name": "name1",
+        "desc": "desc",
+        "tags": ["1", "2", "3"] //uniform with color defined
+      },
+      {
+        "image":
+            "http://cdn.cnn.com/cnnnext/dam/assets/201002160524-airbuszeroe-blended-wing-body-concept.jpg",
+        "price": 10.99,
+        "name": "name1",
+        "desc": "desc",
+        "tags": ["1", "2", "3"] //uniform with color defined
+      },
+      {
+        "image":
+            "https://www.rd.com/wp-content/uploads/2020/01/GettyImages-1131335393-e1580493890249-scaled.jpg",
+        "price": 10.99,
+        "name": "name1",
+        "desc": "desc",
+        "tags": ["1", "2", "3"] //uniform with color defined
+      },
+      {
+        "image":
+            "https://media.istockphoto.com/photos/passenger-airplane-flying-above-clouds-during-sunset-picture-id155439315?k=6&m=155439315&s=612x612&w=0&h=1bPal14stPAXKODdCMHMUWCVheYPVHXl4iyHDCh2Ndk=",
+        "price": 10.99,
+        "name": "name1",
+        "desc": "desc",
+        "tags": ["1", "2", "3"] //uniform with color defined
+      }
+    ];
     return Scaffold(
       appBar: AppBar(
         title: Text(RouterPages.RecentViewed),
@@ -67,7 +133,6 @@ class RecentViewed extends StatelessWidget {
               color: Colors.white,
               padding: EdgeInsets.only(
                 top: 30.0,
-                right: 15.0,
                 left: 15.0,
               ),
               child: Wrap(
@@ -90,256 +155,37 @@ class RecentViewed extends StatelessWidget {
                     ),
                   ),
 
-                  //listcard of production
-                  ProdItemListCard(),
-                  SizedBox(
-                    width: 15.0,
-                  ),
-                  ProdItemListCard(),
-                  ProdItemListCard(),
-                  SizedBox(
-                    width: 15.0,
-                  ),
-                  ProdItemListCard(),
+                  //listcard of production of flow layout wrap
+                  ...recommendedItems
+                      .map(
+                        (e) => ProdItemListCard(prodItem: e),
+                      )
+                      .toList(),
+
+                  /*   StaggeredGridView.countBuilder(
+                    crossAxisCount: 4,
+                    itemCount: 8,
+                    itemBuilder: (BuildContext context, int index) =>
+                        new Container(
+                            color: Colors.green,
+                            child: new Center(
+                              child: new CircleAvatar(
+                                backgroundColor: Colors.white,
+                                child: new Text('$index'),
+                              ),
+                            )),
+                    staggeredTileBuilder: (int index) =>
+                        new StaggeredTile.count(2, index.isEven ? 2 : 1),
+                    mainAxisSpacing: 4.0,
+                    crossAxisSpacing: 4.0,
+                  ), */
+
+                  Footer(),
                 ],
               ),
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class ProdItemListCard extends StatelessWidget {
-  const ProdItemListCard({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-        padding: EdgeInsets.only(top: 15.0),
-        width: (MediaQuery.of(context).size.width - 45) * .5,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Container(
-              width: (MediaQuery.of(context).size.width - 45) * .5,
-              height: (MediaQuery.of(context).size.width - 45) * .5,
-              decoration: BoxDecoration(
-                color: Colors.orange,
-                borderRadius: BorderRadius.circular(5.0),
-                image: DecorationImage(
-                  image: NetworkImage(
-                      'https://media.istockphoto.com/photos/passenger-airplane-flying-above-clouds-during-sunset-picture-id155439315?k=6&m=155439315&s=612x612&w=0&h=1bPal14stPAXKODdCMHMUWCVheYPVHXl4iyHDCh2Ndk='),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            const SizedBox(
-              height: 5.0,
-            ),
-            Text(
-              '\$ 20.99',
-              style: TextStyle(color: Colors.red, fontSize: 14),
-            ),
-            const SizedBox(
-              height: 2.0,
-            ),
-            Text(
-              'Coconut Chunkes Chunkes  Chunkes (3lbs)',
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: 12),
-            ),
-            const SizedBox(
-              height: 2.0,
-            ),
-            Text(
-              'desciption of the product, or other informa her information ',
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(color: Colors.grey, fontSize: 12),
-            ),
-            const SizedBox(
-              height: 2.0,
-            ),
-            Wrap(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                  margin: EdgeInsets.only(right: 5, top: 5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.orange[200], width: 1.0),
-                  ),
-                  child: Text(
-                    'Special Offer',
-                    style: TextStyle(fontSize: 8, color: Colors.orange),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                  margin: EdgeInsets.only(right: 5, top: 5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.teal[200], width: 1.0),
-                  ),
-                  child: Text(
-                    'Presell',
-                    style: TextStyle(fontSize: 8, color: Colors.teal),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                  margin: EdgeInsets.only(right: 5, top: 5),
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.teal[200], width: 1.0),
-                  ),
-                  child: Text(
-                    'New Item',
-                    style: TextStyle(fontSize: 8, color: Colors.teal),
-                  ),
-                ),
-              ],
-            )
-          ],
-        ));
-  }
-}
-
-class RecentViewedProdCard extends StatelessWidget {
-  const RecentViewedProdCard({
-    Key key,
-    this.item,
-  }) : super(key: key);
-
-  final Map item;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: Colors.white,
-      margin: EdgeInsets.only(bottom: 5.0),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            padding: EdgeInsets.only(left: 15.0, top: 10.0),
-            child: Text(item["date"]),
-          ),
-          ...item["items"]
-              .map(
-                (e) => RecentViewedListile(
-                  item: e,
-                ),
-              )
-              .toList(),
-        ],
-      ),
-    );
-  }
-}
-
-class RecentViewedListile extends StatelessWidget {
-  const RecentViewedListile({
-    Key key,
-    this.item,
-  }) : super(key: key);
-
-  final Map item;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        print('redirect to page.');
-      },
-      leading: Container(
-        width: 35,
-        height: 35,
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: NetworkImage(item["image"]),
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-      title: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            item["name"],
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-            style: TextStyle(),
-          ),
-          //single line description
-          Text(
-            'descriptions descriptions descriptions descriptions ',
-            overflow: TextOverflow.ellipsis,
-            maxLines: 1,
-            style: TextStyle(
-              fontSize: 12,
-            ),
-          ),
-          //if any, tags or features
-          Wrap(
-            children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                margin: EdgeInsets.only(right: 5, top: 5),
-                decoration: BoxDecoration(color: Colors.orangeAccent),
-                child: Text(
-                  '90% rabais',
-                  style: TextStyle(
-                    fontSize: 10,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                margin: EdgeInsets.only(right: 5, top: 5),
-                decoration: BoxDecoration(color: Colors.orange),
-                child: Text(
-                  'First Order Return',
-                  style: TextStyle(
-                    fontSize: 10,
-                  ),
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
-                margin: EdgeInsets.only(right: 5, top: 5),
-                decoration: BoxDecoration(color: Colors.red),
-                child: Text(
-                  'First Order Return',
-                  style: TextStyle(
-                    fontSize: 10,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                '\$ ${item["price"]}',
-                overflow: TextOverflow.ellipsis,
-                style: TextStyle(fontSize: 12, color: Colors.red),
-              ),
-              GestureDetector(
-                  child: Icon(
-                    Icons.clear,
-                    size: 12,
-                  ),
-                  onTap: () {
-                    print('removed');
-                  }),
-            ],
-          ),
-        ],
       ),
     );
   }
