@@ -102,9 +102,11 @@ class _ProfileNewState extends State<ProfileNew> {
                   hrPadding: 30.0,
                   children: [
                     TwolineCard(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).pushNamed(RouterPages.Cart);
+                      },
                       leadingText: "3",
-                      trailingText: "Likes",
+                      trailingText: "In Cart",
                     ),
                     TwolineCard(
                       onTap: () {

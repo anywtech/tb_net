@@ -134,11 +134,6 @@ class RecentViewed extends StatelessWidget {
           ],
         ),
       ),
-
-      /*  body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        child: PinterestGrid(),
-      ), */
     );
   }
 }
@@ -321,7 +316,7 @@ class PinterestGrid extends StatelessWidget {
             "https://media.istockphoto.com/photos/passenger-airplane-flying-above-clouds-during-sunset-picture-id155439315?k=6&m=155439315&s=612x612&w=0&h=1bPal14stPAXKODdCMHMUWCVheYPVHXl4iyHDCh2Ndk=",
         "price": 10.99,
         "name": "name1",
-        "desc": "desc",
+        "desc": "des cdesc des cde scdesc descde scdescde scdescde scdescdesc",
         "tags": ["1", "2342534534536356", "3"] //uniform with color defined
       }
     ];
@@ -330,9 +325,6 @@ class PinterestGrid extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       crossAxisCount: 2,
       itemCount: recommendedItems.length,
-      /*   itemBuilder: (context, index) => ImageCard(
-        imageData: imageList[index],
-      ), */
       itemBuilder: (context, index) =>
           ProdItemListCard(prodItem: recommendedItems[index]),
       staggeredTileBuilder: (index) => StaggeredTile.fit(1),

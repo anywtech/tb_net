@@ -10,6 +10,7 @@ import 'package:tb_net/pages/login.dart';
 import 'package:tb_net/pages/news.dart';
 import 'package:tb_net/pages/notification_messages.dart';
 import 'package:tb_net/pages/profile.dart';
+import 'package:tb_net/pages/profile_banner_card/cart.dart';
 import 'package:tb_net/pages/profile_banner_card/following.dart';
 import 'package:tb_net/pages/profile_banner_card/recent_viewed.dart';
 import 'package:tb_net/pages/profile_new.dart';
@@ -42,6 +43,7 @@ class RouterPages {
   static const String NotificationMessages = "Messages";
   static const String RecentViewed = "Recent Viewed";
   static const String Following = "Following";
+  static const String Cart = "Cart";
 }
 
 class Routers {
@@ -76,6 +78,9 @@ class Routers {
         break;
       case RouterPages.Profile:
         return MaterialPageRoute(builder: (context) => Profile());
+        break;
+      case RouterPages.Cart:
+        return MaterialPageRoute(builder: (context) => Cart());
         break;
       case RouterPages.Following:
         return MaterialPageRoute(builder: (context) => Following());
