@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:tb_net/models/proditemcard_in_cart.dart';
 import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/footer.dart';
+import 'package:tb_net/widgets/prod/prod_card_left_check.dart';
+import 'package:tb_net/widgets/rec_staggered_view.dart';
 
 class Cart extends StatelessWidget {
   @override
@@ -24,7 +27,7 @@ class Cart extends StatelessWidget {
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
+          padding: EdgeInsets.symmetric(vertical: 8.0),
           child: Column(children: <Widget>[
             ...prodsInCart
                 .map(
@@ -33,6 +36,8 @@ class Cart extends StatelessWidget {
                   ),
                 )
                 .toList(),
+            RecommendationStaggeredView(),
+            Footer(),
           ]),
         ),
       ),
@@ -92,274 +97,6 @@ class Cart extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class ButtonAddRem extends StatelessWidget {
-  const ButtonAddRem({
-    Key key,
-    this.reduceEvent,
-    this.addEvent,
-    this.qty,
-  }) : super(key: key);
-
-  final Function reduceEvent;
-  final Function addEvent;
-  final int qty;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Row(
-        children: [
-          GestureDetector(
-            onTap: reduceEvent,
-            child: Container(
-              alignment: Alignment.center,
-              height: 20.0,
-              width: 20.0,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1.0,
-                  color: Colors.orange,
-                ),
-              ),
-              child: Text(
-                '-',
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            height: 20.0,
-            width: 40.0,
-            child: Text(qty.toString()),
-          ),
-          GestureDetector(
-            onTap: addEvent,
-            child: Container(
-              alignment: Alignment.center,
-              height: 20.0,
-              width: 20.0,
-              decoration: BoxDecoration(
-                color: Colors.orange,
-                border: Border.all(
-                  width: 1.0,
-                  color: Colors.orange,
-                ),
-              ),
-              child: Container(
-                child: Text(
-                  '+',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class ProdCartLeftCheck extends StatelessWidget {
-  const ProdCartLeftCheck({
-    Key key,
-    this.prodCardInCart,
-  }) : super(key: key);
-
-  final ProdItemCardInCart prodCardInCart;
-
-  @override
-  Widget build(BuildContext context) {
-    /*  final skus1 = [
-      {"name": "Color", "val": "Red"},
-      {"name": "Model", "val": "XX 88 fl h lksjdfk s"},
-      {"name": "Set", "val": "asdfadfk s"}
-    ];
-
-    final skus = {"Color": "Color", "Model": "Model", "Set": "Set"}; */
-
-    return Container(
-      margin: EdgeInsets.only(bottom: 15.0),
-      decoration: BoxDecoration(color: Colors.white, boxShadow: [
-        BoxShadow(
-          color: Colors.grey[200],
-          spreadRadius: 0,
-          blurRadius: 7,
-          offset: Offset(0, 5), // changes position of shadow
-        ),
-      ]),
-      child: Column(
-        children: [
-          ListTile(
-            contentPadding: EdgeInsets.symmetric(horizontal: 0.0),
-            leading: Container(
-              width: 50.0,
-              height: 50.0,
-              decoration: BoxDecoration(
-                color: Colors.orange,
-                image: DecorationImage(
-                  image: NetworkImage(prodCardInCart.image),
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            title: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  prodCardInCart.name,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 14.0,
-                  ),
-                ),
-                Text(
-                  prodCardInCart.desc,
-                  style: TextStyle(
-                    fontSize: 12.0,
-                    color: Colors.grey,
-                  ),
-                ),
-                Text(
-                  'Sourced by ${prodCardInCart.vnm}',
-                  //if refid !="", sold by refname
-                  style: TextStyle(
-                    fontSize: 10.0,
-                  ),
-                ),
-                Text(
-                  '\$ ${prodCardInCart.prc}',
-                  style: TextStyle(
-                    color: Colors.red,
-                    fontSize: 10.0,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-                SKURicheText(
-                  skus: prodCardInCart.sku,
-                ),
-              ],
-            ),
-          ),
-          Divider(
-            color: Colors.orange[100].withOpacity(.5),
-            height: 15.0,
-          ),
-          Container(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                CustomChecker(
-                  onTap: () {},
-                  isChecked: prodCardInCart.isChk,
-                ),
-                ButtonAddRem(
-                  qty: prodCardInCart.qty,
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class SKURicheText extends StatelessWidget {
-  const SKURicheText({
-    Key key,
-    this.skus,
-  }) : super(key: key);
-
-  final List<Sku> skus;
-
-  @override
-  Widget build(BuildContext context) {
-    return RichText(
-      maxLines: 3,
-      overflow: TextOverflow.ellipsis,
-      text: TextSpan(
-          style: TextStyle(
-            fontSize: 10.0,
-            color: Colors.grey,
-          ),
-          children: [
-            for (var e in skus)
-              ...e
-                  .toMap()
-                  .entries
-                  .map((e) => e.key == "name"
-                      ? TextSpan(
-                          text: '${e.value} : ',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                          ))
-                      : TextSpan(text: '${e.value}  '))
-                  .toList(),
-          ]),
-    );
-  }
-}
-
-class CustomChecker extends StatelessWidget {
-  const CustomChecker({
-    Key key,
-    this.height,
-    this.width,
-    this.isChecked,
-    this.onTap,
-    this.iconSize,
-  }) : super(key: key);
-
-  final double height;
-  final double width;
-  final double iconSize;
-  final bool isChecked;
-  final Function onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: isChecked
-          ? Container(
-              alignment: Alignment.bottomLeft,
-              height: height == null ? 20.0 : height,
-              width: width == null ? 20.0 : width,
-              decoration: BoxDecoration(
-                color: Colors.orange,
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(25.0),
-                ),
-              ),
-              child: Icon(
-                Icons.check,
-                size: iconSize == null ? 14.0 : iconSize,
-                color: Colors.white,
-              ),
-            )
-          : Container(
-              alignment: Alignment.bottomLeft,
-              height: height == null ? 20.0 : height,
-              width: width == null ? 20.0 : width,
-              decoration: BoxDecoration(
-                color: Colors.grey[200],
-                borderRadius: BorderRadius.only(
-                  topRight: Radius.circular(25.0),
-                ),
-              ),
-              child: Icon(
-                Icons.check,
-                size: iconSize == null ? 14.0 : iconSize,
-                color: Colors.grey[400],
-              ),
-            ),
     );
   }
 }

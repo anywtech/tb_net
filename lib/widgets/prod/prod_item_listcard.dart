@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tb_net/models/proditem_portrait_card.dart';
 import 'package:tb_net/widgets/prod/prodtag.dart';
 
 class ProdItemListCard extends StatelessWidget {
@@ -7,7 +8,7 @@ class ProdItemListCard extends StatelessWidget {
     Key key,
   }) : super(key: key);
 
-  final Map prodItem;
+  final ProdItemPortaitCard prodItem;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ProdItemListCard extends StatelessWidget {
                 color: Colors.orange,
                 borderRadius: BorderRadius.circular(5.0),
                 image: DecorationImage(
-                  image: NetworkImage(prodItem["image"]),
+                  image: NetworkImage(prodItem.image),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -34,14 +35,14 @@ class ProdItemListCard extends StatelessWidget {
               height: 5.0,
             ),
             Text(
-              '\$ ${prodItem["price"]}',
+              '\$ ${prodItem.price}',
               style: TextStyle(color: Colors.red, fontSize: 14),
             ),
             const SizedBox(
               height: 2.0,
             ),
             Text(
-              prodItem["name"],
+              prodItem.name,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(fontSize: 14),
@@ -50,7 +51,7 @@ class ProdItemListCard extends StatelessWidget {
               height: 2.0,
             ),
             Text(
-              prodItem["desc"],
+              prodItem.desc,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(color: Colors.grey, fontSize: 12),
@@ -59,7 +60,7 @@ class ProdItemListCard extends StatelessWidget {
               height: 2.0,
             ),
             Wrap(children: [
-              ...prodItem["tags"].map((tag) {
+              ...prodItem.tags.map((tag) {
                 var color = getColor(tag);
                 return ProdTag(
                   tagName: tag,

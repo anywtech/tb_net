@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:tb_net/models/recent_viewed_card.dart';
 import 'package:tb_net/widgets/recent_viewed/recent_viewed_listile.dart';
 
 class RecentViewedProdCard extends StatelessWidget {
   const RecentViewedProdCard({
     Key key,
-    this.item,
+    this.recentViewedCard,
   }) : super(key: key);
 
-  final Map item;
+  final RecentViewedCard recentViewedCard;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,12 @@ class RecentViewedProdCard extends StatelessWidget {
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(left: 15.0, top: 10.0),
-            child: Text(item["date"]),
+            child: Text(recentViewedCard.date),
           ),
-          ...item["items"]
+          ...recentViewedCard.rvItems
               .map(
                 (e) => RecentViewedListile(
-                  item: e,
+                  rvItem: e,
                 ),
               )
               .toList(),

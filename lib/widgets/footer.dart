@@ -7,7 +7,8 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: Colors.white,
       height: 150,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,

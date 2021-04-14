@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:tb_net/models/recent_viewed_card.dart';
 
 class RecentViewedListile extends StatelessWidget {
   const RecentViewedListile({
     Key key,
-    this.item,
+    this.rvItem,
   }) : super(key: key);
 
-  final Map item;
+  final RvItem rvItem;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ class RecentViewedListile extends StatelessWidget {
         height: 35,
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: NetworkImage(item["image"]),
+            image: NetworkImage(rvItem.image),
             fit: BoxFit.cover,
           ),
         ),
@@ -28,7 +29,7 @@ class RecentViewedListile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            item["name"],
+            rvItem.name,
             overflow: TextOverflow.ellipsis,
             maxLines: 1,
             style: TextStyle(),
@@ -84,7 +85,7 @@ class RecentViewedListile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                '\$ ${item["price"]}',
+                '\$ ${rvItem.price}',
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(fontSize: 12, color: Colors.red),
               ),

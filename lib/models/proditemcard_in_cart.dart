@@ -149,12 +149,12 @@ final List<ProdItemCardInCart> prodsInCart = List.generate(
         image:
             "https://img.freepik.com/free-vector/air-travel-logo_1284-753.jpg?size=338&ext=jpg",
         name: 'name' + i.toString(),
-        desc: 'desc1' + i.toString(),
-        vid: 'vid1' + i.toString(),
-        vnm: 'vnm1' + i.toString(),
+        desc: 'desc' + i.toString(),
+        vid: 'vid' + i.toString(),
+        vnm: 'vnm' + i.toString(),
         prc: 100.99,
         isChk: i % 2 == 0 ? true : false,
-        sid: 'sid1' + i.toString(),
+        sid: 'sid' + i.toString(),
         sku: [
           new Sku(name: 'Name1', val: 'val1'),
           new Sku(name: 'Name2', val: 'val2'),
