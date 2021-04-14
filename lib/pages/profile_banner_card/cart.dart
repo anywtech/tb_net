@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tb_net/models/proditemcard_in_cart.dart';
 import 'package:tb_net/utils/routers.dart';
 
 class Cart extends StatelessWidget {
@@ -25,7 +26,13 @@ class Cart extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
           child: Column(children: <Widget>[
-            ProdCartLeftCheck(),
+            ...prodsInCart
+                .map(
+                  (p) => ProdCartLeftCheck(
+                    prodCardInCart: p,
+                  ),
+                )
+                .toList(),
           ]),
         ),
       ),
@@ -92,7 +99,14 @@ class Cart extends StatelessWidget {
 class ButtonAddRem extends StatelessWidget {
   const ButtonAddRem({
     Key key,
+    this.reduceEvent,
+    this.addEvent,
+    this.qty,
   }) : super(key: key);
+
+  final Function reduceEvent;
+  final Function addEvent;
+  final int qty;
 
   @override
   Widget build(BuildContext context) {
@@ -100,7 +114,7 @@ class ButtonAddRem extends StatelessWidget {
       child: Row(
         children: [
           GestureDetector(
-            onTap: () {},
+            onTap: reduceEvent,
             child: Container(
               alignment: Alignment.center,
               height: 20.0,
@@ -117,12 +131,13 @@ class ButtonAddRem extends StatelessWidget {
             ),
           ),
           Container(
-              alignment: Alignment.center,
-              height: 20.0,
-              width: 40.0,
-              child: Text('1')),
+            alignment: Alignment.center,
+            height: 20.0,
+            width: 40.0,
+            child: Text(qty.toString()),
+          ),
           GestureDetector(
-            onTap: () {},
+            onTap: addEvent,
             child: Container(
               alignment: Alignment.center,
               height: 20.0,
@@ -156,19 +171,17 @@ class ProdCartLeftCheck extends StatelessWidget {
     this.prodCardInCart,
   }) : super(key: key);
 
-  final List<Map> prodCardInCart;
-
-  /* {"pid":"10001", "image":"", "name":"", "desc":"", "vid":"",
-   "vnm":"","prc":10.99, "isChk":true,"sid":"","sku":{"name":"","val":""},"qty":10, "inStock":10}
-    */
+  final ProdItemCardInCart prodCardInCart;
 
   @override
   Widget build(BuildContext context) {
-    final skus = [
+    /*  final skus1 = [
       {"name": "Color", "val": "Red"},
       {"name": "Model", "val": "XX 88 fl h lksjdfk s"},
       {"name": "Set", "val": "asdfadfk s"}
     ];
+
+    final skus = {"Color": "Color", "Model": "Model", "Set": "Set"}; */
 
     return Container(
       margin: EdgeInsets.only(bottom: 15.0),
@@ -190,8 +203,7 @@ class ProdCartLeftCheck extends StatelessWidget {
               decoration: BoxDecoration(
                 color: Colors.orange,
                 image: DecorationImage(
-                  image: NetworkImage(
-                      'https://img.freepik.com/free-vector/air-travel-logo_1284-753.jpg?size=338&ext=jpg'),
+                  image: NetworkImage(prodCardInCart.image),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -200,7 +212,7 @@ class ProdCartLeftCheck extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'name',
+                  prodCardInCart.name,
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
@@ -208,20 +220,21 @@ class ProdCartLeftCheck extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'description',
+                  prodCardInCart.desc,
                   style: TextStyle(
                     fontSize: 12.0,
                     color: Colors.grey,
                   ),
                 ),
                 Text(
-                  'Sourced by COSTCO',
+                  'Sourced by ${prodCardInCart.vnm}',
+                  //if refid !="", sold by refname
                   style: TextStyle(
                     fontSize: 10.0,
                   ),
                 ),
                 Text(
-                  '\$ 10.99',
+                  '\$ ${prodCardInCart.prc}',
                   style: TextStyle(
                     color: Colors.red,
                     fontSize: 10.0,
@@ -229,7 +242,7 @@ class ProdCartLeftCheck extends StatelessWidget {
                   ),
                 ),
                 SKURicheText(
-                  skus: skus,
+                  skus: prodCardInCart.sku,
                 ),
               ],
             ),
@@ -244,9 +257,11 @@ class ProdCartLeftCheck extends StatelessWidget {
               children: [
                 CustomChecker(
                   onTap: () {},
-                  isChecked: false,
+                  isChecked: prodCardInCart.isChk,
                 ),
-                ButtonAddRem(),
+                ButtonAddRem(
+                  qty: prodCardInCart.qty,
+                ),
               ],
             ),
           ),
@@ -262,7 +277,7 @@ class SKURicheText extends StatelessWidget {
     this.skus,
   }) : super(key: key);
 
-  final List<Map> skus;
+  final List<Sku> skus;
 
   @override
   Widget build(BuildContext context) {
@@ -276,7 +291,9 @@ class SKURicheText extends StatelessWidget {
           ),
           children: [
             for (var e in skus)
-              ...e.entries
+              ...e
+                  .toMap()
+                  .entries
                   .map((e) => e.key == "name"
                       ? TextSpan(
                           text: '${e.value} : ',
