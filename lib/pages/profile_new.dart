@@ -195,7 +195,10 @@ class _ProfileNewState extends State<ProfileNew> {
                         margin: 15.0,
                         children: [
                           TwolineCard(
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(RouterPages.Orders);
+                            },
                             leadingText: "3",
                             trailingText: "Repay",
                             isBottom: true,
