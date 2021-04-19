@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -179,7 +178,7 @@ class _HomeState extends State<Home> with WidgetsBindingObserver {
             TextButton(
               child: Text('profile'),
               onPressed: () {
-                Navigator.pushNamed(context, RouterPages.ProfileNew);
+                Navigator.pushNamed(context, RouterPages.Profile);
               },
             ),
           ],

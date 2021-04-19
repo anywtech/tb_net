@@ -1,8 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:tb_net/pages/deliver_address.dart';
 import 'package:tb_net/pages/chat.dart';
 import 'package:tb_net/pages/dispatcher.dart';
+import 'package:tb_net/pages/drivers/driver.dart';
 import 'package:tb_net/pages/edit_address.dart';
 import 'package:tb_net/pages/error.dart';
 import 'package:tb_net/pages/home.dart';
@@ -14,12 +14,12 @@ import 'package:tb_net/pages/profile.dart';
 import 'package:tb_net/pages/profile_banner_card/cart.dart';
 import 'package:tb_net/pages/profile_banner_card/following.dart';
 import 'package:tb_net/pages/profile_banner_card/recent_viewed.dart';
-import 'package:tb_net/pages/profile_new.dart';
 import 'package:tb_net/pages/profile_settings/account/setting_email.dart';
 import 'package:tb_net/pages/profile_settings/account/setting_mobile.dart';
 import 'package:tb_net/pages/profile_settings/account/setting_profile.dart';
 import 'package:tb_net/pages/profile_settings/setting.dart';
 import 'package:tb_net/pages/register.dart';
+import 'package:tb_net/pages/store/my_store.dart';
 import 'package:tb_net/pages/wallet.dart';
 
 //route name of pages
@@ -40,12 +40,13 @@ class RouterPages {
   static const String EditingAddress = "EditingAddress";
   static const String Wallet = "Wallet";
   static const String Setting = "Setting";
-  static const String ProfileNew = "ProfileNew";
   static const String NotificationMessages = "Messages";
   static const String RecentViewed = "Recent Viewed";
   static const String Following = "Following";
   static const String Cart = "Cart";
   static const String Orders = "Orders";
+  static const String MyStore = "Store";
+  static const String Driver = "Driver";
 }
 
 class Routers {
@@ -81,6 +82,12 @@ class Routers {
       case RouterPages.Profile:
         return MaterialPageRoute(builder: (context) => Profile());
         break;
+      case RouterPages.Driver:
+        return MaterialPageRoute(builder: (context) => Driver());
+        break;
+      case RouterPages.MyStore:
+        return MaterialPageRoute(builder: (context) => MyStore());
+        break;
       case RouterPages.Orders:
         return MaterialPageRoute(builder: (context) => Orders());
         break;
@@ -96,9 +103,7 @@ class Routers {
       case RouterPages.NotificationMessages:
         return MaterialPageRoute(builder: (context) => NotificationMessages());
         break;
-      case RouterPages.ProfileNew:
-        return MaterialPageRoute(builder: (context) => ProfileNew());
-        break;
+
       case RouterPages.Setting:
         return MaterialPageRoute(builder: (context) => Setting());
         break;

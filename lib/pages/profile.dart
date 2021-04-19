@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:tb_net/utils/routers.dart';
+
+import 'package:tb_net/widgets/profile/row_card.dart';
+import 'package:tb_net/widgets/profile/two_line_card.dart';
 /* import 'package:provider/provider.dart';
 import 'package:tb_net/providers/home.dart';
 import 'package:tb_net/providers/login_form.dart';
@@ -21,111 +25,120 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Profle'),
-        elevation: 0,
-      ),
       body: SingleChildScrollView(
         physics: BouncingScrollPhysics(),
-        child: Stack(
-            alignment: AlignmentDirectional.topCenter,
-            clipBehavior: Clip.none,
-            children: [
-              Column(
-                children: [
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 8),
-                    width: double.infinity,
-                    height: MediaQuery.of(context).size.height * 0.1,
-                    color: Colors.orange[200],
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        CircleAvatar(
-                          backgroundColor: Colors.white,
+        child: Stack(children: [
+          Container(
+            height: MediaQuery.of(context).size.height * .3,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    Colors.orange[200],
+                    Colors.orange[400],
+                    Colors.orange[600]
+                  ]),
+            ),
+          ),
+          SafeArea(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                      left: 15.0, right: 15.0, top: 8.0, bottom: 6.0),
+                  width: double.infinity,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CircleAvatar(
+                        backgroundColor: Colors.white,
+                        child: Text('V'),
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Vanessa',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text(
+                              'vanessa@gmail.com',
+                              style: TextStyle(fontSize: 14),
+                            ),
+                          ],
                         ),
-                        Container(
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
+                      ),
+                      Spacer(),
+                      IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            Navigator.of(context)
+                                .pushNamed(RouterPages.SettingProfile);
+                          }),
+                      Container(
+                        child: Stack(
+                            alignment: const Alignment(0.5, -0.6),
                             children: [
-                              Text('asdfasdfasf'),
-                              Text('asdfasdfasf'),
-                            ],
-                          ),
-                        ),
-                        Spacer(),
-                        IconButton(
-                            icon: Icon(Icons.edit),
-                            onPressed: () {
-                              Navigator.of(context)
-                                  .pushNamed(RouterPages.SettingProfile);
-                            }),
-                        Container(
-                          child: Stack(
-                              alignment: const Alignment(0.5, -0.6),
-                              children: [
-                                IconButton(
-                                    icon: Icon(Icons.edit),
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                          RouterPages.SettingProfile);
-                                    }),
-                                GestureDetector(
-                                  child: Icon(Icons.notifications_none),
-                                  onTap: () {
-                                    Navigator.of(context).pushNamed(
-                                        RouterPages.NotificationMessages);
-                                  },
-                                ),
-                                CircleAvatar(
-                                  radius: 3.0,
-                                  backgroundColor: Colors.red,
-                                ),
-                              ]),
-                        ),
-                      ],
+                              GestureDetector(
+                                child: Icon(Icons.notifications_none),
+                                onTap: () {
+                                  Navigator.of(context).pushNamed(
+                                      RouterPages.NotificationMessages);
+                                },
+                              ),
+                              CircleAvatar(
+                                radius: 3.0,
+                                backgroundColor: Colors.red,
+                              ),
+                            ]),
+                      ),
+                    ],
+                  ),
+                ),
+                Rowcard(
+                  margin: 8.0,
+                  hrPadding: 30.0,
+                  children: [
+                    TwolineCard(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(RouterPages.Cart);
+                      },
+                      leadingText: "3",
+                      trailingText: "In Cart",
                     ),
-                  ),
-                  Rowcard(
-                    height: MediaQuery.of(context).size.height * .15,
-                    color: Colors.orange[300],
-                    margin: 0,
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.28,
-                  ),
-                  ListTile(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(RouterPages.Setting);
-                    },
-                    tileColor: Colors.white,
-                    leading: Icon(Icons.settings),
-                    title: Text('Settings'),
-                    trailing: Icon(Icons.chevron_right_rounded),
-                  ),
-                  ListTile(
-                    tileColor: Colors.white,
-                    leading: Icon(Icons.info_outline),
-                    title: Text('About us'),
-                    trailing: Icon(Icons.chevron_right_rounded),
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height * 0.1,
-                  ),
-                ],
-              ),
-              Positioned(
-                top: MediaQuery.of(context).size.height * 0.18,
-                right: 0,
-                left: 0,
-                child: Container(
+                    TwolineCard(
+                      onTap: () {
+                        Navigator.of(context).pushNamed(RouterPages.Following);
+                      },
+                      leadingText: "3",
+                      trailingText: "Following",
+                    ),
+                    TwolineCard(
+                      onTap: () {},
+                      leadingText: "3",
+                      trailingText: "Coupons",
+                    ),
+                    TwolineCard(
+                      onTap: () {
+                        Navigator.of(context)
+                            .pushNamed(RouterPages.RecentViewed);
+                      },
+                      leadingText: "3",
+                      trailingText: "Recents",
+                    ),
+                  ],
+                ),
+                Container(
                   margin: EdgeInsets.symmetric(horizontal: 15.0),
                   child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.05,
+                        padding: EdgeInsets.symmetric(vertical: 8.0),
                         decoration: BoxDecoration(
                           color: Colors.black,
                           borderRadius: BorderRadius.only(
@@ -180,119 +193,110 @@ class _ProfileState extends State<Profile> {
                       ),
                       Rowcard(
                         title: 'ORDERS',
-                        height: MediaQuery.of(context).size.height * .06,
                         color: Colors.white,
                         margin: 15.0,
+                        children: [
+                          TwolineCard(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(RouterPages.Orders);
+                            },
+                            leadingText: "3",
+                            trailingText: "Repay",
+                            isBottom: true,
+                            trailingColor: Colors.grey,
+                          ),
+                          TwolineCard(
+                            onTap: () {},
+                            leadingText: "3",
+                            trailingText: "Delivering",
+                            isBottom: true,
+                            trailingColor: Colors.grey,
+                          ),
+                          TwolineCard(
+                            onTap: () {},
+                            leadingText: "3",
+                            trailingText: "Remark",
+                            isBottom: true,
+                            trailingColor: Colors.grey,
+                          ),
+                          TwolineCard(
+                            onTap: () {},
+                            leadingText: "3",
+                            trailingText: "Service",
+                            isBottom: true,
+                            trailingColor: Colors.grey,
+                          ),
+                        ],
                       ),
                       Rowcard(
                         title: 'BUSINESS',
-                        height: MediaQuery.of(context).size.height * .06,
                         color: Colors.white,
                         margin: 15.0,
+                        children: [
+                          TwolineCard(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(RouterPages.MyStore);
+                            },
+                            leadingIcon: Icons.store,
+                            trailingText: "My Store",
+                            isBottom: true,
+                            trailingColor: Colors.grey,
+                          ),
+                          TwolineCard(
+                            onTap: () {
+                              Navigator.of(context)
+                                  .pushNamed(RouterPages.Driver);
+                            },
+                            leadingIcon: Icons.car_rental,
+                            trailingText: "Be a Driver",
+                            isBottom: true,
+                            trailingColor: Colors.grey,
+                          ),
+                          TwolineCard(
+                            onTap: () {},
+                            leadingIcon: Icons.business,
+                            trailingText: "Be an Agent",
+                            isBottom: true,
+                            trailingColor: Colors.grey,
+                          ),
+                          TwolineCard(
+                            onTap: () {},
+                            leadingIcon: Icons.refresh_outlined,
+                            trailingText: "Store T",
+                            isBottom: true,
+                            trailingColor: Colors.grey,
+                          ),
+                        ],
                       ),
                     ],
                   ),
                 ),
-              ),
-            ]),
-      ),
-      //NewWidget(initialSystemLocales: initialSystemLocales),
-    );
-  }
-}
-
-class Rowcard extends StatelessWidget {
-  final double height;
-  final String title;
-  final Color color;
-  final double margin;
-
-  const Rowcard({
-    this.title,
-    this.height,
-    this.color,
-    this.margin,
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 8.0),
-      margin: EdgeInsets.only(bottom: margin),
-      decoration: BoxDecoration(
-        color: color,
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 5,
-              offset: Offset(0, 5),
-              color: Colors.grey.withOpacity(0.1),
-              spreadRadius: 2),
-        ],
-      ),
-      child: Wrap(
-        children: [
-          title == null
-              ? Container()
-              : Container(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 3.0, horizontal: 15.0),
-                  color: color,
-                  width: double.infinity,
-                  child: Text(title),
+                ListTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(RouterPages.Setting);
+                  },
+                  tileColor: Colors.white,
+                  leading: Icon(Icons.settings),
+                  title: Text('Settings'),
+                  trailing: Icon(Icons.chevron_right_rounded),
                 ),
-          Container(
-            height: height,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                GestureDetector(
-                  onTap: () {},
-                  child: Column(
-                    children: [
-                      Text(
-                        '3',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      Text('Likes'),
-                    ],
-                  ),
-                ),
-                Column(
-                  children: [
-                    Text(
-                      '5',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text('Following'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      '3',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text('Coupons'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(
-                      '3',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text('Recents'),
-                  ],
+                ListTile(
+                  tileColor: Colors.white,
+                  leading: Icon(Icons.info_outline),
+                  title: Text('About us'),
+                  trailing: Icon(Icons.chevron_right_rounded),
                 ),
               ],
             ),
-          )
-        ],
+          ),
+        ]),
       ),
     );
   }
 }
+
 /* 
 class NewWidget extends StatelessWidget {
   const NewWidget({
@@ -407,3 +411,48 @@ class NewWidget extends StatelessWidget {
   }
 }
  */
+
+class OurDelegate extends SliverPersistentHeaderDelegate {
+  double toolBarHeight;
+  //toolBarHeight Included in both
+  double closedHeight;
+  double openHeight;
+
+  OurDelegate({
+    this.toolBarHeight,
+    this.closedHeight,
+    this.openHeight,
+  });
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      height: toolBarHeight + openHeight,
+      // color: Theme.of(context).primaryColorDark,
+      child: SafeArea(
+        child: Container(
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(
+                  "https://images.pexels.com/photos/396547/pexels-photo-396547.jpeg?auto=compress&cs=tinysrgb&h=350"),
+              fit: BoxFit.fill,
+            ),
+          ),
+          padding: EdgeInsets.symmetric(
+            horizontal: 64,
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => toolBarHeight + openHeight;
+
+  @override
+  double get minExtent => toolBarHeight + closedHeight;
+
+  @override
+  bool shouldRebuild(SliverPersistentHeaderDelegate oldDelegate) => true;
+}
