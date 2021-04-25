@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tb_net/pages/store/my_store.dart';
+import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/common/banner_gradient_and_image.dart';
+import 'package:tb_net/widgets/common/custom_button.dart';
+import 'package:tb_net/widgets/common/indicator_card.dart';
 
 class Driver extends StatelessWidget {
   @override
@@ -37,46 +43,10 @@ class Driver extends StatelessWidget {
             primary: false,
             child: Column(
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * .3,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            'https://officesnapshots.com/wp-content/uploads/2021/02/fca-eisner-amper-f.oudeman-med-05.jpg'),
-                        fit: BoxFit.fill),
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.orange[200],
-                          Colors.orange[400],
-                          Colors.orange[600]
-                        ]),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'ALIZII DRIVERs',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      Text(
-                        'Turn leisure to cash',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+                BannerGradientAndImage(
+                  imgPath: 'assets/img/driver/banner.png',
+                  title: 'ALIZII DRIVER',
+                  subTitle: 'Turn leisure to cash',
                 ),
                 Container(
                   color: Colors.white,
@@ -108,8 +78,22 @@ class Driver extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Expanded(child: IndicatorCard()),
-                          Expanded(child: IndicatorCard()),
+                          Expanded(
+                            child: IndicatorCard(
+                              imgPath: 'assets/img/circular.png',
+                              title: 'Accurate Exposure',
+                              desc:
+                                  'Reache to all potential clients rapidly and precisely',
+                            ),
+                          ),
+                          Expanded(
+                            child: IndicatorCard(
+                              imgPath: 'assets/img/circular.png',
+                              title: 'Accurate Exposure',
+                              desc:
+                                  'Reache to all potential clients rapidly and precisely',
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -117,8 +101,22 @@ class Driver extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Expanded(child: IndicatorCard()),
-                          Expanded(child: IndicatorCard()),
+                          Expanded(
+                            child: IndicatorCard(
+                              imgPath: 'assets/img/circular.png',
+                              title: 'Accurate Exposure',
+                              desc:
+                                  'Reache to all potential clients rapidly and precisely',
+                            ),
+                          ),
+                          Expanded(
+                            child: IndicatorCard(
+                              imgPath: 'assets/img/circular.png',
+                              title: 'Accurate Exposure',
+                              desc:
+                                  'Reache to all potential clients rapidly and precisely',
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -145,7 +143,7 @@ class Driver extends StatelessWidget {
                         height: 5.0,
                       ),
                       const SizedBox(
-                        height: 80.0,
+                        height: 60.0,
                       ),
                     ],
                   ),
@@ -153,29 +151,17 @@ class Driver extends StatelessWidget {
               ],
             ),
           ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          CustomBackLeadingInSafeArea(),
           Positioned(
             bottom: 15,
             right: 0,
             left: 0,
-            child: Container(
-              alignment: Alignment.center,
-              height: 50.0,
-              margin: EdgeInsets.symmetric(horizontal: 15.0),
-              decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(25.0)),
-              child: Text(
-                'Register Driver RIGHT NOW',
-                style: TextStyle(fontWeight: FontWeight.w600),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: CustomBottomFixedButton(
+                text: 'Register Now',
+                onTap: () => Navigator.of(context)
+                    .popAndPushNamed(RouterPages.RegisterDriver),
               ),
             ),
           ),
@@ -240,60 +226,5 @@ class FAQCard extends StatelessWidget {
               ],
             ),
           );
-  }
-}
-
-class IndicatorCard extends StatelessWidget {
-  const IndicatorCard({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // width: MediaQuery.of(context).size.width * .5,
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: 35.0,
-            width: 35.0,
-            decoration: BoxDecoration(
-              color: Colors.red,
-              image: DecorationImage(
-                image: NetworkImage(''),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          Text(
-            'Accurate Exposure',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          Text(
-            'Reach to all potiential',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 12.0,
-            ),
-          ),
-          Text(
-            'clients precisely.',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 12.0,
-            ),
-          ),
-        ],
-      ),
-    );
   }
 }

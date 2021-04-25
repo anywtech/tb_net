@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-
 import 'package:tb_net/utils/routers.dart';
-
 import 'package:tb_net/widgets/profile/row_card.dart';
 import 'package:tb_net/widgets/profile/two_line_card.dart';
 /* import 'package:provider/provider.dart';
@@ -51,9 +49,18 @@ class _ProfileState extends State<Profile> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        child: Text('V'),
+                      Container(
+                        height: 50,
+                        width: 50,
+                        padding: EdgeInsets.all(2.5),
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: NetworkImage(
+                                'https://github.com/abuanwar072/E-commerce-App-UI-Flutter/blob/master/assets/images/bag_1.png?raw=true'),
+                            //  fit: BoxFit.fill,
+                          ),
+                        ),
                       ),
                       Container(
                         padding: EdgeInsets.only(left: 15.0),

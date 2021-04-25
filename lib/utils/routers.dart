@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:tb_net/pages/deliver_address.dart';
 import 'package:tb_net/pages/chat.dart';
 import 'package:tb_net/pages/dispatcher.dart';
 import 'package:tb_net/pages/drivers/driver.dart';
+import 'package:tb_net/pages/drivers/driver_reg_confirm.dart';
+import 'package:tb_net/pages/drivers/register_driver.dart';
 import 'package:tb_net/pages/edit_address.dart';
 import 'package:tb_net/pages/error.dart';
 import 'package:tb_net/pages/home.dart';
@@ -20,6 +23,8 @@ import 'package:tb_net/pages/profile_settings/account/setting_profile.dart';
 import 'package:tb_net/pages/profile_settings/setting.dart';
 import 'package:tb_net/pages/register.dart';
 import 'package:tb_net/pages/store/my_store.dart';
+import 'package:tb_net/pages/store/register_store.dart';
+import 'package:tb_net/pages/store/store_reg_confirm.dart';
 import 'package:tb_net/pages/wallet.dart';
 
 //route name of pages
@@ -47,6 +52,10 @@ class RouterPages {
   static const String Orders = "Orders";
   static const String MyStore = "Store";
   static const String Driver = "Driver";
+  static const String RegisterStore = "Register Store";
+  static const String StoreRegConfirm = "ALIZII Store";
+  static const String RegisterDriver = "Register Driver";
+  static const String DriverRegConfirm = "ALIZII Driver";
 }
 
 class Routers {
@@ -81,6 +90,18 @@ class Routers {
         break;
       case RouterPages.Profile:
         return MaterialPageRoute(builder: (context) => Profile());
+        break;
+      case RouterPages.StoreRegConfirm:
+        return MaterialPageRoute(builder: (context) => StoreRegConfirm());
+        break;
+      case RouterPages.RegisterStore:
+        return MaterialPageRoute(builder: (context) => RegisterStore());
+        break;
+      case RouterPages.RegisterDriver:
+        return MaterialPageRoute(builder: (context) => RegisterDriver());
+        break;
+      case RouterPages.DriverRegConfirm:
+        return MaterialPageRoute(builder: (context) => DriverRegConfirm());
         break;
       case RouterPages.Driver:
         return MaterialPageRoute(builder: (context) => Driver());

@@ -33,3 +33,31 @@ class CustomButton extends StatelessWidget {
     );
   }
 }
+
+class CustomBottomFixedButton extends StatelessWidget {
+  const CustomBottomFixedButton({
+    Key key,
+    this.onTap,
+    this.text,
+  }) : super(key: key);
+
+  final Function onTap;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        alignment: Alignment.center,
+        height: 50.0,
+        decoration: BoxDecoration(
+            color: Colors.orange, borderRadius: BorderRadius.circular(25.0)),
+        child: Text(
+          text,
+          style: TextStyle(fontWeight: FontWeight.w600),
+        ),
+      ),
+    );
+  }
+}

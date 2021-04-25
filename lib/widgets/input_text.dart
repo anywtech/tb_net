@@ -24,6 +24,8 @@ class InputText extends StatelessWidget {
   final Color cursorColor;
   final void Function() suffixIconEvent;
   final void Function() onTap;
+  final double contentPaddingHorizontal;
+  final double contentPaddingVertical;
 
   const InputText({
     Key key,
@@ -49,6 +51,8 @@ class InputText extends StatelessWidget {
     this.suffix,
     this.onTap,
     this.border,
+    this.contentPaddingHorizontal = 10.0,
+    this.contentPaddingVertical = 8.0,
   }) : super(key: key);
 
   @override
@@ -65,7 +69,10 @@ class InputText extends StatelessWidget {
       cursorColor: cursorColor,
       decoration: InputDecoration(
         isDense: true,
-        contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: contentPaddingHorizontal,
+          vertical: contentPaddingVertical,
+        ),
         // suffixIconConstraints: BoxConstraints(maxHeight: 20),
         prefixIcon: prefixIcon == null ? null : Icon(prefixIcon),
         suffixIcon: suffixIcon == null

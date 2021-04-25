@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:tb_net/utils/global_pref.dart';
+import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/common/banner_gradient_and_image.dart';
+import 'package:tb_net/widgets/common/custom_button.dart';
+import 'package:tb_net/widgets/common/indicator_card.dart';
 
 class MyStore extends StatelessWidget {
   @override
@@ -8,49 +14,12 @@ class MyStore extends StatelessWidget {
         children: [
           SingleChildScrollView(
             physics: BouncingScrollPhysics(),
-            primary: false,
             child: Column(
               children: [
-                Container(
-                  alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height * .3,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            'https://officesnapshots.com/wp-content/uploads/2021/02/fca-eisner-amper-f.oudeman-med-05.jpg'),
-                        fit: BoxFit.fill),
-                    gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          Colors.orange[200],
-                          Colors.orange[400],
-                          Colors.orange[600]
-                        ]),
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'ALIZII STORE',
-                        style: TextStyle(
-                          fontSize: 20.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 5.0,
-                      ),
-                      Text(
-                        'Start businesses simply and rapidly',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ],
-                  ),
+                BannerGradientAndImage(
+                  imgPath: 'assets/img/store/banner.jpg',
+                  title: 'ALIZII STORE',
+                  subTitle: 'Make life happy and ease',
                 ),
                 Container(
                   color: Colors.white,
@@ -81,8 +50,22 @@ class MyStore extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Expanded(child: IndicatorCard()),
-                          Expanded(child: IndicatorCard()),
+                          Expanded(
+                            child: IndicatorCard(
+                              imgPath: 'assets/img/location.png',
+                              title: 'Accurate Exposure',
+                              desc:
+                                  'Reache to all potential clients rapidly and precisely',
+                            ),
+                          ),
+                          Expanded(
+                            child: IndicatorCard(
+                              imgPath: 'assets/img/people.png',
+                              title: 'Accurate Exposure',
+                              desc:
+                                  'Reache to all potential clients rapidly and precisely',
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -90,8 +73,22 @@ class MyStore extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          Expanded(child: IndicatorCard()),
-                          Expanded(child: IndicatorCard()),
+                          Expanded(
+                            child: IndicatorCard(
+                              imgPath: 'assets/img/circular.png',
+                              title: 'Accurate Exposure',
+                              desc:
+                                  'Reache to all potential clients rapidly and precisely',
+                            ),
+                          ),
+                          Expanded(
+                            child: IndicatorCard(
+                              imgPath: 'assets/img/store.png',
+                              title: 'Accurate Exposure',
+                              desc:
+                                  'Reache to all potential clients rapidly and precisely',
+                            ),
+                          ),
                         ],
                       ),
                       const SizedBox(
@@ -137,33 +134,57 @@ class MyStore extends StatelessWidget {
               ],
             ),
           ),
-          SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15.0),
-              child: Icon(
-                Icons.menu,
-                color: Colors.white,
-              ),
-            ),
-          ),
+          CustomBackLeadingInSafeArea(),
           Positioned(
             bottom: 15,
             right: 0,
             left: 0,
-            child: Container(
-              alignment: Alignment.center,
-              height: 50.0,
-              margin: EdgeInsets.symmetric(horizontal: 15.0),
-              decoration: BoxDecoration(
-                  color: Colors.orange,
-                  borderRadius: BorderRadius.circular(25.0)),
-              child: Text(
-                'OPEN MY STORE RIGHT NOW',
-                style: TextStyle(fontWeight: FontWeight.w600),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15.0),
+              child: CustomBottomFixedButton(
+                text: 'OPEN MY STORE RIGHT NOW',
+                onTap: () {
+                  Navigator.of(context)
+                      .popAndPushNamed(RouterPages.RegisterStore);
+                },
               ),
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CustomBackLeadingInSafeArea extends StatelessWidget {
+  const CustomBackLeadingInSafeArea({
+    Key key,
+    this.iconPath,
+  }) : super(key: key);
+
+  final String iconPath;
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Container(
+        height: 50.0,
+        child: AppBar(
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: Container(
+              padding: EdgeInsets.all(15.0),
+              child: SvgPicture.asset(
+                iconPath == null
+                    ? "assets/icon/svg/md-arrow_back.svg"
+                    : iconPath,
+              ),
+            ),
+          ),
+          elevation: 0.0,
+          backgroundColor: Colors.transparent,
+        ),
       ),
     );
   }
@@ -178,20 +199,23 @@ class FlagShopCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width - 45,
-      padding: EdgeInsets.only(bottom: 5.0, top: 5.0),
+      margin: EdgeInsets.only(bottom: 50.0),
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          offset: Offset(0, 15),
+          offset: Offset(0, 5),
           color: Colors.grey[200],
-          blurRadius: 7,
-          spreadRadius: 5,
-        )
+          blurRadius: 10,
+        ),
       ]),
       child: Column(
         children: [
           Container(
             height: MediaQuery.of(context).size.width * .5,
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(5.0),
+                topRight: Radius.circular(5.0),
+              ),
               color: Colors.red,
               image: DecorationImage(
                 image: NetworkImage(
@@ -203,7 +227,7 @@ class FlagShopCard extends StatelessWidget {
           ListTile(
             tileColor: Colors.white,
             leading: Container(
-              width: 50.0,
+              width: GlobalPref.of(context).pw(15),
               decoration: BoxDecoration(
                 image: DecorationImage(
                   image: NetworkImage(
@@ -223,61 +247,6 @@ class FlagShopCard extends StatelessWidget {
             trailing: Icon(
               Icons.open_in_new_outlined,
               size: 18.0,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class IndicatorCard extends StatelessWidget {
-  const IndicatorCard({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      // width: MediaQuery.of(context).size.width * .5,
-
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            height: 35.0,
-            width: 35.0,
-            decoration: BoxDecoration(
-              color: Colors.red,
-              image: DecorationImage(
-                image: NetworkImage(''),
-              ),
-            ),
-          ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          Text(
-            'Accurate Exposure',
-            style: TextStyle(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(
-            height: 5.0,
-          ),
-          Text(
-            'Reach to all potiential',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 12.0,
-            ),
-          ),
-          Text(
-            'clients precisely.',
-            style: TextStyle(
-              color: Colors.grey[600],
-              fontSize: 12.0,
             ),
           ),
         ],
