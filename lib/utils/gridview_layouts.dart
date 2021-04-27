@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:tb_net/models/image_data.dart';
 import 'package:tb_net/models/proditem_portrait_card.dart';
+import 'package:tb_net/pages/chat.dart';
 import 'package:tb_net/widgets/prod/prod_item_listcard.dart';
 
 class NewWidget extends StatelessWidget {
@@ -34,25 +35,32 @@ class NewWidget extends StatelessWidget {
 }
 
 class StandardGrid extends StatelessWidget {
-  const StandardGrid({Key key}) : super(key: key);
+  const StandardGrid({Key key, this.widget}) : super(key: key);
+
+  final Widget widget;
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       // scrollDirection: Axis.vertical,
+      padding: EdgeInsets.only(top: 0),
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       // addAutomaticKeepAlives: true,
-      itemCount: imageList.length,
+      itemCount: widget == null ? imageList.length : recommendedItems.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          mainAxisSpacing: 3,
-          crossAxisSpacing: 4,
+          crossAxisCount: 2,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 10,
           childAspectRatio: MediaQuery.of(context).size.width /
               (MediaQuery.of(context).size.height / 1.5)),
-      itemBuilder: (context, index) => ImageCard(
-        imageData: imageList[index],
-      ),
+      itemBuilder: (context, index) => widget == null
+          ? ImageCard(
+              imageData: imageList[index],
+            )
+          : StandardGridItemCard(
+              prodItemPortaitCard: recommendedItems[index],
+            ),
     );
   }
 }
@@ -106,6 +114,7 @@ class InstagramSearchGrid extends StatelessWidget {
   }
 }
 
+//recommend stag view
 class PinterestGrid extends StatelessWidget {
   const PinterestGrid({Key key}) : super(key: key);
 
@@ -133,8 +142,26 @@ class ImageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(16.0),
+      borderRadius: BorderRadius.circular(5.0),
       child: Image.network(imageData.imageUrl, fit: BoxFit.cover),
+    );
+  }
+}
+
+class VerticalItemCard extends StatelessWidget {
+  const VerticalItemCard({this.imageData});
+
+  final ImageData imageData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Container(child: Image.network(imageData.imageUrl, fit: BoxFit.cover)),
+        Text('Title'),
+        Text('\$100.99'),
+      ],
     );
   }
 }

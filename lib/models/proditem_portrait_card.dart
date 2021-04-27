@@ -71,7 +71,7 @@ final List<ProdItemPortaitCard> recommendedItems = [
   new ProdItemPortaitCard(
     desc: "desc",
     image:
-        'https://www.jetsetter.com/wp-content/uploads/sites/7/2018/04/Yq6ObbTP-1-1380x690.jpeg',
+        'https://pic2.zhimg.com/v2-c03f123671cb7a148613dc8b9f56b498_1440w.jpg?source=172ae18b',
     name: 'name2',
     price: 10.99,
     tags: ["1", "2", "3"],
