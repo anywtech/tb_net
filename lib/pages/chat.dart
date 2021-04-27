@@ -1,11 +1,8 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:tb_net/models/image_data.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tb_net/models/proditem_portrait_card.dart';
 import 'package:tb_net/utils/global_pref.dart';
 import 'package:tb_net/utils/gridview_layouts.dart';
-import 'package:tb_net/widgets/rec_staggered_view.dart';
 
 class Chat extends StatelessWidget {
   @override
@@ -14,7 +11,7 @@ class Chat extends StatelessWidget {
       body: Stack(
         children: [
           Container(
-            height: 110 + GlobalPref.of(context).height * .1,
+            height: 110, //+ GlobalPref.of(context).height * .1,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topLeft,
@@ -43,308 +40,33 @@ class Chat extends StatelessWidget {
                 width: GlobalPref.of(context).width,
                 child: Column(
                   children: [
-                    Container(
-                      height: 100,
-                      width: GlobalPref.of(context).width - 30,
-                      decoration: BoxDecoration(
-                          image: DecorationImage(
-                            image: AssetImage('assets/img/home/ad1-2.png'),
-                            fit: BoxFit.fill,
-                          ),
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              color: Colors.grey[100],
-                              blurRadius: 2,
-                            )
-                          ]),
-                    ),
+                    HomeLevl1AdBanner(),
                     const SizedBox(
                       height: 15.0,
                     ),
                     //collabration sales
-                    Container(
-                      padding: const EdgeInsets.all(8.0),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              color: Colors.grey[100],
-                              blurRadius: 2,
-                            )
-                          ]),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                        text: 'Time limit sales : ',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                      TextSpan(
-                                        text: '10:19:01',
-                                        style: TextStyle(
-                                          color: Colors.red,
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                  const SizedBox(
-                                    height: 15.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TimeLimitedCard(
-                                        price: 9.99,
-                                        marketPrice: 199.99,
-                                        imgPath:
-                                            'assets/img/home/01-blue-t-shirt.png',
-                                      ),
-                                      TimeLimitedCard(
-                                        price: 9.99,
-                                        marketPrice: 199.99,
-                                        imgPath:
-                                            'assets/img/home/3bd6ba24fc8e816eb5c678d0cc4ec1e2.png',
-                                      ),
-                                      TimeLimitedCard(
-                                        price: 9.99,
-                                        marketPrice: 199.99,
-                                        imgPath:
-                                            'assets/img/home/12-mi-music.png',
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                        text: 'SPECIAL OFFER',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                  const SizedBox(
-                                    height: 15.0,
-                                  ),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      TimeLimitedCard(
-                                        price: 9.99,
-                                        marketPrice: 199.99,
-                                        imgPath:
-                                            'assets/img/home/367d043a8dab477bd5bdf9ea862bbd0d.png',
-                                      ),
-                                      TimeLimitedCard(
-                                        price: 9.99,
-                                        marketPrice: 199.99,
-                                        imgPath:
-                                            'assets/img/home/602d9df90edb6a81219b2847face67b6.png',
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 15.0,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                        text: 'HOT SALE',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                  const SizedBox(
-                                    height: 15.0,
-                                  ),
-                                  HomePromotionCardHorizontal(
-                                    imgPath:
-                                        'assets/img/home/602d9df90edb6a81219b2847face67b6.png',
-                                    title: 'AI Pet Bowl',
-                                    price: 99.99,
-                                  ),
-                                  HomePromotionCardHorizontal(
-                                    imgPath:
-                                        'assets/img/home/919e6d1fda4c61fedbb35ea7aec3f61f.png',
-                                    title: 'Balance Car',
-                                    price: 1999.99,
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                        text: 'NEW ARRIVAL',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.black,
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
-                                  const SizedBox(
-                                    height: 15.0,
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            NewArrivalContainer(
-                                                imgPath:
-                                                    'assets/img/home/c837260b4e38856f327cf4453a9fda6c.png'),
-                                            NewArrivalContainer(
-                                                imgPath:
-                                                    'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
-                                            NewArrivalContainer(
-                                                imgPath:
-                                                    'assets/img/home/e82532a66c2d66322258accd1fcf3dbd.png'),
-                                            NewArrivalContainer(
-                                                imgPath:
-                                                    'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
-                                          ]),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          NewArrivalContainer(
-                                              imgPath:
-                                                  'assets/img/home/c837260b4e38856f327cf4453a9fda6c.png'),
-                                          NewArrivalContainer(
-                                              imgPath:
-                                                  'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
-                                          NewArrivalContainer(
-                                              imgPath:
-                                                  'assets/img/home/e82532a66c2d66322258accd1fcf3dbd.png'),
-                                          NewArrivalContainer(
-                                              imgPath:
-                                                  'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
+                    HomePromotionArea(),
 
                     //level2 adv
                     const SizedBox(
                       height: 15.0,
                     ),
-                    Container(
-                      height: 56,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          image: DecorationImage(
-                            image: AssetImage(
-                                'assets/img/home/97ee0d2cc04fac5318a3997c32ed3c66.jpg'),
-                            fit: BoxFit.fill,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              color: Colors.grey[100],
-                              blurRadius: 2,
-                            ),
-                          ]),
-                    ),
+                    HomeLevl2AdBanner(),
 
                     const SizedBox(
                       height: 15.0,
                     ),
 
                     //broker ranking
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 8.0, vertical: 10.0),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              color: Colors.grey[100],
-                              blurRadius: 2,
-                            ),
-                          ]),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'BROKER CIRCLE',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w500, fontSize: 12),
-                              ),
-                              Text(
-                                'SEE WHAT THEY SELL',
-                                style: TextStyle(
-                                    color: Colors.orange,
-                                    fontWeight: FontWeight.w500,
-                                    fontSize: 12),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 15.0,
-                          ),
-                          //to be changed
-                          Container(
-                            child: Image(
-                              image: AssetImage('assets/img/home/1.png'),
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    BrokerCircle(),
 
                     // products 2 cols
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    HomeCol2ProdList(),
+
+                    // ranking by category
                     const SizedBox(
                       height: 15.0,
                     ),
@@ -356,16 +78,366 @@ class Chat extends StatelessWidget {
                             BoxShadow(
                               offset: Offset(0, 10),
                               color: Colors.grey[100],
-                              blurRadius: 2,
+                              blurRadius: 6,
                             ),
                           ]),
-                      child: StandardGrid(
-                        widget: StandardGridItemCard(),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              SvgPicture.asset('assets/icon/svg/crown.svg'),
+                              Text('TOP SALEs')
+                            ],
+                          ),
+                        ],
                       ),
                     ),
                   ],
                 ),
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeCol2ProdList extends StatelessWidget {
+  const HomeCol2ProdList({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5.0),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 10),
+              color: Colors.grey[100],
+              blurRadius: 2,
+            ),
+          ]),
+      child: StandardGrid(
+        widget: StandardGridItemCard(),
+      ),
+    );
+  }
+}
+
+class HomePromotionArea extends StatelessWidget {
+  const HomePromotionArea({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5.0),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 10),
+              color: Colors.grey[100],
+              blurRadius: 2,
+            )
+          ]),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: TextSpan(children: [
+                      TextSpan(
+                        text: 'Time limit sales : ',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                      TextSpan(
+                        text: '10:19:01',
+                        style: TextStyle(
+                          color: Colors.red,
+                        ),
+                      ),
+                    ]),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      TimeLimitedCard(
+                        price: 9.99,
+                        marketPrice: 199.99,
+                        imgPath: 'assets/img/home/01-blue-t-shirt.png',
+                      ),
+                      TimeLimitedCard(
+                        price: 9.99,
+                        marketPrice: 199.99,
+                        imgPath:
+                            'assets/img/home/3bd6ba24fc8e816eb5c678d0cc4ec1e2.png',
+                      ),
+                      TimeLimitedCard(
+                        price: 9.99,
+                        marketPrice: 199.99,
+                        imgPath: 'assets/img/home/12-mi-music.png',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  RichText(
+                    text: TextSpan(children: [
+                      TextSpan(
+                        text: 'SPECIAL OFFER',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ]),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      TimeLimitedCard(
+                        price: 9.99,
+                        marketPrice: 199.99,
+                        imgPath:
+                            'assets/img/home/367d043a8dab477bd5bdf9ea862bbd0d.png',
+                      ),
+                      TimeLimitedCard(
+                        price: 9.99,
+                        marketPrice: 199.99,
+                        imgPath:
+                            'assets/img/home/602d9df90edb6a81219b2847face67b6.png',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 15.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: TextSpan(children: [
+                      TextSpan(
+                        text: 'HOT SALE',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ]),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  HomePromotionCardHorizontal(
+                    imgPath:
+                        'assets/img/home/602d9df90edb6a81219b2847face67b6.png',
+                    title: 'AI Pet Bowl',
+                    price: 99.99,
+                  ),
+                  HomePromotionCardHorizontal(
+                    imgPath:
+                        'assets/img/home/919e6d1fda4c61fedbb35ea7aec3f61f.png',
+                    title: 'Balance Car',
+                    price: 1999.99,
+                  ),
+                ],
+              ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  RichText(
+                    text: TextSpan(children: [
+                      TextSpan(
+                        text: 'NEW ARRIVAL',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ]),
+                  ),
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            NewArrivalContainer(
+                                imgPath:
+                                    'assets/img/home/c837260b4e38856f327cf4453a9fda6c.png'),
+                            NewArrivalContainer(
+                                imgPath:
+                                    'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
+                            NewArrivalContainer(
+                                imgPath:
+                                    'assets/img/home/e82532a66c2d66322258accd1fcf3dbd.png'),
+                            NewArrivalContainer(
+                                imgPath:
+                                    'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
+                          ]),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          NewArrivalContainer(
+                              imgPath:
+                                  'assets/img/home/c837260b4e38856f327cf4453a9fda6c.png'),
+                          NewArrivalContainer(
+                              imgPath:
+                                  'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
+                          NewArrivalContainer(
+                              imgPath:
+                                  'assets/img/home/e82532a66c2d66322258accd1fcf3dbd.png'),
+                          NewArrivalContainer(
+                              imgPath:
+                                  'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class HomeLevl1AdBanner extends StatelessWidget {
+  const HomeLevl1AdBanner({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: GlobalPref.of(context).width - 30,
+      decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/img/home/ad1-2.png'),
+            fit: BoxFit.fill,
+          ),
+          borderRadius: BorderRadius.circular(5.0),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 10),
+              color: Colors.grey[100],
+              blurRadius: 6,
+            )
+          ]),
+    );
+  }
+}
+
+class HomeLevl2AdBanner extends StatelessWidget {
+  const HomeLevl2AdBanner({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 56,
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5.0),
+          image: DecorationImage(
+            image: AssetImage(
+                'assets/img/home/97ee0d2cc04fac5318a3997c32ed3c66.jpg'),
+            fit: BoxFit.fill,
+          ),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 10),
+              color: Colors.grey[100],
+              blurRadius: 2,
+            ),
+          ]),
+    );
+  }
+}
+
+class BrokerCircle extends StatelessWidget {
+  const BrokerCircle({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5.0),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 10),
+              color: Colors.grey[100],
+              blurRadius: 2,
+            ),
+          ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'BROKER CIRCLE',
+                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 12),
+              ),
+              Text(
+                'SEE WHAT THEY SELL',
+                style: TextStyle(
+                    color: Colors.orange,
+                    fontWeight: FontWeight.w500,
+                    fontSize: 12),
+              )
+            ],
+          ),
+          const SizedBox(
+            height: 15.0,
+          ),
+          //to be changed
+          Container(
+            child: Image(
+              image: AssetImage('assets/img/home/1.png'),
+              fit: BoxFit.fill,
             ),
           ),
         ],
@@ -390,8 +462,8 @@ class StandardGridItemCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             offset: Offset(0, 0),
-            color: Colors.grey[200],
-            blurRadius: 4,
+            color: Colors.grey[300],
+            blurRadius: 6,
           )
         ],
       ),
