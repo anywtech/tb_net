@@ -108,6 +108,9 @@ class Chat extends StatelessWidget {
                         )
                       ],
                     ),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
                     HomeCol2ProdList(
                       prodItemPortaitCard: recommendedItems,
                     ),
