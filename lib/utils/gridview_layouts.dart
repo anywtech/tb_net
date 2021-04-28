@@ -35,9 +35,18 @@ class NewWidget extends StatelessWidget {
 }
 
 class StandardGrid extends StatelessWidget {
-  const StandardGrid({Key key, this.widget}) : super(key: key);
+  const StandardGrid({
+    Key key,
+    this.crossAxisCount,
+    this.childAspectRatio,
+    this.mainAxisSpacing,
+    this.crossAxisSpacing,
+  }) : super(key: key);
 
-  final Widget widget;
+  final int crossAxisCount;
+  final double childAspectRatio;
+  final double mainAxisSpacing;
+  final double crossAxisSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -47,20 +56,15 @@ class StandardGrid extends StatelessWidget {
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       // addAutomaticKeepAlives: true,
-      itemCount: widget == null ? imageList.length : recommendedItems.length,
+      itemCount: imageList6.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 8,
-          crossAxisSpacing: 10,
-          childAspectRatio: MediaQuery.of(context).size.width /
-              (MediaQuery.of(context).size.height / 1.5)),
-      itemBuilder: (context, index) => widget == null
-          ? ImageCard(
-              imageData: imageList[index],
-            )
-          : StandardGridItemCard(
-              prodItemPortaitCard: recommendedItems[index],
-            ),
+          crossAxisCount: crossAxisCount,
+          mainAxisSpacing: mainAxisSpacing,
+          crossAxisSpacing: crossAxisSpacing,
+          childAspectRatio: childAspectRatio),
+      itemBuilder: (context, index) => ImageCard(
+        imageData: imageList[index],
+      ),
     );
   }
 }
@@ -143,7 +147,7 @@ class ImageCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(5.0),
-      child: Image.network(imageData.imageUrl, fit: BoxFit.cover),
+      child: Image.network(imageData.imageUrl, fit: BoxFit.fill),
     );
   }
 }

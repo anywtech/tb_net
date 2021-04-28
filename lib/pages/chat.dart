@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tb_net/models/proditem_portrait_card.dart';
 import 'package:tb_net/utils/global_pref.dart';
-import 'package:tb_net/utils/gridview_layouts.dart';
+import 'package:tb_net/utils/home_standard_gridview.dart';
 
 class Chat extends StatelessWidget {
   @override
@@ -64,33 +64,56 @@ class Chat extends StatelessWidget {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    HomeCol2ProdList(),
+                    HomeCol2ProdList(
+                      prodItemPortaitCard: recommendedItems4,
+                    ),
 
                     // ranking by category
                     const SizedBox(
                       height: 15.0,
                     ),
-                    Container(
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5.0),
-                          boxShadow: [
-                            BoxShadow(
-                              offset: Offset(0, 10),
-                              color: Colors.grey[100],
-                              blurRadius: 6,
-                            ),
-                          ]),
-                      child: Column(
-                        children: [
-                          Row(
-                            children: [
-                              SvgPicture.asset('assets/icon/svg/crown.svg'),
-                              Text('TOP SALEs')
-                            ],
-                          ),
-                        ],
-                      ),
+                    HomeEventCard(
+                      typeIcon: 'assets/icon/svg/crown.svg',
+                      typeName: 'TOP SALEs',
+                      subName: 'Mobile',
+                      children: recommendedItems3
+                          .map((e) => HomeTopSaleCardItem(
+                                prodItemPortaitCard: e,
+                              ))
+                          .toList(),
+                    ),
+                    // products 2 cols
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    HomeCol2ProdList(
+                      prodItemPortaitCard: recommendedItems4,
+                    ),
+                    // products 2 cols
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+
+                    HomeEventCard(
+                      typeIcon: 'assets/icon/svg/crown.svg',
+                      typeName: 'Featured',
+                      subName: 'Fashion Shoes',
+                      children: [
+                        HomeCol3StandardGrid(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 15,
+                          crossAxisSpacing: 30,
+                          childAspectRatio: 0.75,
+                          prods: recommendedItems6,
+                        )
+                      ],
+                    ),
+                    HomeCol2ProdList(
+                      prodItemPortaitCard: recommendedItems,
+                    ),
+                    // ranking by category
+                    const SizedBox(
+                      height: 15.0,
                     ),
                   ],
                 ),
@@ -103,10 +126,153 @@ class Chat extends StatelessWidget {
   }
 }
 
+class HomeEventCard extends StatelessWidget {
+  const HomeEventCard({
+    Key key,
+    this.typeIcon,
+    this.typeName,
+    this.subName,
+    this.children,
+  }) : super(key: key);
+
+  final String typeIcon;
+  final String typeName;
+  final String subName;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(5.0),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 10),
+              color: Colors.grey[100],
+              blurRadius: 6,
+            ),
+          ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Container(
+                height: 15.0,
+                width: 15.0,
+                child: SvgPicture.asset(typeIcon),
+              ),
+              const SizedBox(width: 5.0),
+              Text(
+                typeName,
+                style: TextStyle(fontSize: 12.0),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5.0,
+          ),
+          Text(
+            subName,
+            style: TextStyle(fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(
+            height: 15.0,
+          ),
+          if (children != null) ...children,
+        ],
+      ),
+    );
+  }
+}
+
+class HomeTopSaleCardItem extends StatelessWidget {
+  const HomeTopSaleCardItem({
+    Key key,
+    this.prodItemPortaitCard,
+  }) : super(key: key);
+
+  final ProdItemPortaitCard prodItemPortaitCard;
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(children: [
+      Container(
+        width: GlobalPref.of(context).width - 30,
+        height: GlobalPref.of(context).width * .2,
+        margin: EdgeInsets.only(bottom: 10.0),
+        child: Row(children: [
+          Container(
+            padding: EdgeInsets.all(5),
+            margin: EdgeInsets.only(right: 10.0),
+            width: GlobalPref.of(context).width * .2,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Colors.grey[200],
+              /*  image: DecorationImage(
+                image: AssetImage(
+                    'assets/img/home/bag_1.png'), // NetworkImage(prodItemPortaitCard.image),
+                fit: BoxFit.fill,
+              ), */
+            ),
+            child: Image(
+              image: AssetImage('assets/img/home/bag_1.png'),
+            ),
+          ),
+          Container(
+            width: GlobalPref.of(context).width * .6,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  prodItemPortaitCard.name,
+                  maxLines: 2,
+                  overflow: TextOverflow.clip,
+                ),
+                Text(
+                  '\$${prodItemPortaitCard.price.toString()}',
+                  style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: Colors.red,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ]),
+      ),
+      Container(
+        decoration: BoxDecoration(
+          color: Colors.deepOrange,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(5.0),
+            bottomRight: Radius.circular(5.0),
+          ),
+        ),
+        child: Text(
+          'Top1',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 10.0,
+          ),
+        ),
+      ),
+    ]);
+  }
+}
+
 class HomeCol2ProdList extends StatelessWidget {
   const HomeCol2ProdList({
     Key key,
+    this.prodItemPortaitCard,
   }) : super(key: key);
+
+  final List<ProdItemPortaitCard> prodItemPortaitCard;
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +287,7 @@ class HomeCol2ProdList extends StatelessWidget {
               blurRadius: 2,
             ),
           ]),
-      child: StandardGrid(
-        widget: StandardGridItemCard(),
-      ),
+      child: HomeStandardGrid(prodItemPortaitCard: prodItemPortaitCard),
     );
   }
 }
@@ -158,16 +322,18 @@ class HomePromotionArea extends StatelessWidget {
                   RichText(
                     text: TextSpan(children: [
                       TextSpan(
-                        text: 'Time limit sales : ',
+                        text: 'TIME LIMIT: ',
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
+                          fontSize: 12.0,
                         ),
                       ),
                       TextSpan(
                         text: '10:19:01',
                         style: TextStyle(
                           color: Colors.red,
+                          fontSize: 10.0,
                         ),
                       ),
                     ]),
@@ -208,6 +374,7 @@ class HomePromotionArea extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
+                          fontSize: 12.0,
                         ),
                       ),
                     ]),
@@ -252,6 +419,7 @@ class HomePromotionArea extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
+                          fontSize: 12.0,
                         ),
                       ),
                     ]),
@@ -283,6 +451,7 @@ class HomePromotionArea extends StatelessWidget {
                         style: TextStyle(
                           fontWeight: FontWeight.w600,
                           color: Colors.black,
+                          fontSize: 12.0,
                         ),
                       ),
                     ]),
@@ -426,7 +595,7 @@ class BrokerCircle extends StatelessWidget {
                 style: TextStyle(
                     color: Colors.orange,
                     fontWeight: FontWeight.w500,
-                    fontSize: 12),
+                    fontSize: 10),
               )
             ],
           ),
@@ -486,12 +655,18 @@ class StandardGridItemCard extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
-            child: Text(prodItemPortaitCard.name),
+            child: Text(
+              prodItemPortaitCard.name,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 10.0),
             child: Text(
               '\$${prodItemPortaitCard.price.toString()}',
+              overflow: TextOverflow.ellipsis,
+              maxLines: 1,
               style: TextStyle(
                 fontWeight: FontWeight.w600,
               ),
