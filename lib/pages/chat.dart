@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:tb_net/models/proditem_portrait_card.dart';
+import 'package:tb_net/models/product/proddetail.dart';
 import 'package:tb_net/utils/global_pref.dart';
 import 'package:tb_net/utils/home_standard_gridview.dart';
+import 'package:tb_net/utils/routers.dart';
+import 'package:tb_net/widgets/footer.dart';
 
 class Chat extends StatelessWidget {
   @override
@@ -76,6 +79,7 @@ class Chat extends StatelessWidget {
                       typeIcon: 'assets/icon/svg/crown.svg',
                       typeName: 'TOP SALEs',
                       subName: 'Mobile',
+                      isSvg: true,
                       children: recommendedItems3
                           .map((e) => HomeTopSaleCardItem(
                                 prodItemPortaitCard: e,
@@ -98,6 +102,7 @@ class Chat extends StatelessWidget {
                       typeIcon: 'assets/icon/svg/crown.svg',
                       typeName: 'Featured',
                       subName: 'Fashion Shoes',
+                      isSvg: true,
                       children: [
                         HomeCol3StandardGrid(
                           crossAxisCount: 3,
@@ -118,6 +123,35 @@ class Chat extends StatelessWidget {
                     const SizedBox(
                       height: 15.0,
                     ),
+                    HomeEventCard(
+                      typeIcon: 'assets/img/home/costco.png',
+                      typeName: 'Costco',
+                      subName: 'Spring Deal',
+                      isSvg: false,
+                      padding: EdgeInsets.only(
+                        top: 5.0,
+                        right: 5.0,
+                        left: 5.0,
+                      ),
+                      children: [
+                        HomeSaveEventStandardGrid(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          childAspectRatio: 0.95,
+                          prods: savedItems,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 15.0,
+                    ),
+                    HomeCol2ProdList(
+                      prodItemPortaitCard: recommendedItems,
+                    ),
+                    Footer(
+                      color: Colors.transparent,
+                    ),
                   ],
                 ),
               ),
@@ -136,17 +170,27 @@ class HomeEventCard extends StatelessWidget {
     this.typeName,
     this.subName,
     this.children,
+    this.isSvg,
+    this.padding,
   }) : super(key: key);
 
   final String typeIcon;
+  final bool isSvg;
   final String typeName;
   final String subName;
   final List<Widget> children;
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 5.0, left: 10.0, right: 10.0),
+      padding: padding == null
+          ? const EdgeInsets.only(
+              top: 5.0,
+              left: 10.0,
+              right: 10.0,
+            )
+          : padding,
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(5.0),
@@ -165,8 +209,15 @@ class HomeEventCard extends StatelessWidget {
             children: [
               Container(
                 height: 15.0,
-                width: 15.0,
-                child: SvgPicture.asset(typeIcon),
+                width: 30.0,
+                child: isSvg
+                    ? SvgPicture.asset(
+                        typeIcon,
+                        fit: BoxFit.contain,
+                      )
+                    : Image(
+                        image: AssetImage(typeIcon),
+                      ),
               ),
               const SizedBox(width: 5.0),
               Text(
@@ -319,90 +370,11 @@ class HomePromotionArea extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                        text: 'TIME LIMIT: ',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 12.0,
-                        ),
-                      ),
-                      TextSpan(
-                        text: '10:19:01',
-                        style: TextStyle(
-                          color: Colors.red,
-                          fontSize: 10.0,
-                        ),
-                      ),
-                    ]),
-                  ),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TimeLimitedCard(
-                        price: 9.99,
-                        marketPrice: 199.99,
-                        imgPath: 'assets/img/home/01-blue-t-shirt.png',
-                      ),
-                      TimeLimitedCard(
-                        price: 9.99,
-                        marketPrice: 199.99,
-                        imgPath:
-                            'assets/img/home/3bd6ba24fc8e816eb5c678d0cc4ec1e2.png',
-                      ),
-                      TimeLimitedCard(
-                        price: 9.99,
-                        marketPrice: 199.99,
-                        imgPath: 'assets/img/home/12-mi-music.png',
-                      ),
-                    ],
-                  ),
-                ],
+              TimelimitSale(
+                items: timeLimitedSales,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                        text: 'SPECIAL OFFER',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    ]),
-                  ),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      TimeLimitedCard(
-                        price: 9.99,
-                        marketPrice: 199.99,
-                        imgPath:
-                            'assets/img/home/367d043a8dab477bd5bdf9ea862bbd0d.png',
-                      ),
-                      TimeLimitedCard(
-                        price: 9.99,
-                        marketPrice: 199.99,
-                        imgPath:
-                            'assets/img/home/602d9df90edb6a81219b2847face67b6.png',
-                      ),
-                    ],
-                  ),
-                ],
+              SpecialOffer(
+                items: specialOffers,
               ),
             ],
           ),
@@ -412,100 +384,218 @@ class HomePromotionArea extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                        text: 'HOT SALE',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    ]),
-                  ),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  HomePromotionCardHorizontal(
-                    imgPath:
-                        'assets/img/home/602d9df90edb6a81219b2847face67b6.png',
-                    title: 'AI Pet Bowl',
-                    price: 99.99,
-                  ),
-                  HomePromotionCardHorizontal(
-                    imgPath:
-                        'assets/img/home/919e6d1fda4c61fedbb35ea7aec3f61f.png',
-                    title: 'Balance Car',
-                    price: 1999.99,
-                  ),
-                ],
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                        text: 'NEW ARRIVAL',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          color: Colors.black,
-                          fontSize: 12.0,
-                        ),
-                      ),
-                    ]),
-                  ),
-                  const SizedBox(
-                    height: 15.0,
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            NewArrivalContainer(
-                                imgPath:
-                                    'assets/img/home/c837260b4e38856f327cf4453a9fda6c.png'),
-                            NewArrivalContainer(
-                                imgPath:
-                                    'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
-                            NewArrivalContainer(
-                                imgPath:
-                                    'assets/img/home/e82532a66c2d66322258accd1fcf3dbd.png'),
-                            NewArrivalContainer(
-                                imgPath:
-                                    'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
-                          ]),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          NewArrivalContainer(
-                              imgPath:
-                                  'assets/img/home/c837260b4e38856f327cf4453a9fda6c.png'),
-                          NewArrivalContainer(
-                              imgPath:
-                                  'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
-                          NewArrivalContainer(
-                              imgPath:
-                                  'assets/img/home/e82532a66c2d66322258accd1fcf3dbd.png'),
-                          NewArrivalContainer(
-                              imgPath:
-                                  'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+              HotSale(),
+              NewArrival(),
             ],
           ),
         ],
       ),
+    );
+  }
+}
+
+class NewArrival extends StatelessWidget {
+  const NewArrival({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(
+          text: TextSpan(children: [
+            TextSpan(
+              text: 'NEW ARRIVAL',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontSize: 12.0,
+              ),
+            ),
+          ]),
+        ),
+        const SizedBox(
+          height: 15.0,
+        ),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              NewArrivalContainer(
+                  imgPath:
+                      'assets/img/home/c837260b4e38856f327cf4453a9fda6c.png'),
+              NewArrivalContainer(
+                  imgPath:
+                      'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
+              NewArrivalContainer(
+                  imgPath:
+                      'assets/img/home/e82532a66c2d66322258accd1fcf3dbd.png'),
+              NewArrivalContainer(
+                  imgPath:
+                      'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
+            ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                NewArrivalContainer(
+                    imgPath:
+                        'assets/img/home/c837260b4e38856f327cf4453a9fda6c.png'),
+                NewArrivalContainer(
+                    imgPath:
+                        'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
+                NewArrivalContainer(
+                    imgPath:
+                        'assets/img/home/e82532a66c2d66322258accd1fcf3dbd.png'),
+                NewArrivalContainer(
+                    imgPath:
+                        'assets/img/home/b4bce84e729d1dd2e8b057809967f801.png'),
+              ],
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class HotSale extends StatelessWidget {
+  const HotSale({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(
+          text: TextSpan(children: [
+            TextSpan(
+              text: 'HOT SALE',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontSize: 12.0,
+              ),
+            ),
+          ]),
+        ),
+        const SizedBox(
+          height: 15.0,
+        ),
+        HomePromotionCardHorizontal(
+          imgPath: 'assets/img/home/602d9df90edb6a81219b2847face67b6.png',
+          title: 'AI Pet Bowl',
+          price: 99.99,
+        ),
+        HomePromotionCardHorizontal(
+          imgPath: 'assets/img/home/919e6d1fda4c61fedbb35ea7aec3f61f.png',
+          title: 'Balance Car',
+          price: 1999.99,
+        ),
+      ],
+    );
+  }
+}
+
+class SpecialOffer extends StatelessWidget {
+  const SpecialOffer({
+    Key key,
+    this.items,
+  }) : super(key: key);
+
+  final List<ProdItemPortaitCard> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        RichText(
+          text: TextSpan(children: [
+            TextSpan(
+              text: 'SPECIAL OFFER',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.black,
+                fontSize: 12.0,
+              ),
+            ),
+          ]),
+        ),
+        const SizedBox(
+          height: 15.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: items
+              .map(
+                (item) => TimeLimitedCard(
+                  price: item.price,
+                  marketPrice: item.marketPrice,
+                  imgPath: item.image,
+                ),
+              )
+              .toList(),
+        ),
+      ],
+    );
+  }
+}
+
+class TimelimitSale extends StatelessWidget {
+  const TimelimitSale({
+    Key key,
+    this.items,
+  }) : super(key: key);
+
+  final List<ProdItemPortaitCard> items;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        RichText(
+          text: TextSpan(children: [
+            TextSpan(
+              text: 'TIME LIMIT SALE',
+              style: TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Colors.red,
+                fontSize: 12.0,
+              ),
+            ),
+            /*  TextSpan(
+              text: '10:19:01',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 10.0,
+              ),
+            ), */
+          ]),
+        ),
+        const SizedBox(
+          height: 15.0,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: items
+              .map(
+                (item) => TimeLimitedCard(
+                    price: item.price,
+                    marketPrice: item.marketPrice,
+                    imgPath: item.image,
+                    onTap: () {
+                      Navigator.of(context).pushNamed(RouterPages.ProductDetail,
+                          arguments: product001);
+                    }),
+              )
+              .toList(),
+        ),
+      ],
     );
   }
 }
@@ -748,11 +838,13 @@ class TimeLimitedCard extends StatelessWidget {
     this.price,
     this.marketPrice,
     this.imgPath,
+    this.onTap,
   }) : super(key: key);
 
   final double price;
   final double marketPrice;
   final String imgPath;
+  final Function onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -760,12 +852,23 @@ class TimeLimitedCard extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
+          alignment: Alignment.center,
           height: 56.0,
           width: 56.0,
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage(imgPath),
+              image: AssetImage(
+                  'assets/img/home/3bd6ba24fc8e816eb5c678d0cc4ec1e2.png'),
               fit: BoxFit.fill,
+            ),
+          ),
+          child: GestureDetector(
+            onTap: onTap,
+            child: Image(
+              image: AssetImage(
+                  'assets/img/home/3bd6ba24fc8e816eb5c678d0cc4ec1e2.png'),
+              // NetworkImage(imgPath),
+              fit: BoxFit.contain,
             ),
           ),
         ),

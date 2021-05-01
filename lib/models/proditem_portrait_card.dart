@@ -19,6 +19,8 @@ class ProdItemPortaitCard {
     @required this.desc,
     @required this.tags,
     @required this.brand,
+    @required this.saved,
+    @required this.marketPrice,
   });
 
   final String image;
@@ -27,6 +29,8 @@ class ProdItemPortaitCard {
   final String desc;
   final List<String> tags;
   final String brand;
+  final double saved;
+  final double marketPrice;
 
   ProdItemPortaitCard copyWith({
     String image,
@@ -34,6 +38,9 @@ class ProdItemPortaitCard {
     String name,
     String desc,
     List<String> tags,
+    String brand,
+    double saved,
+    double marketPrice,
   }) =>
       ProdItemPortaitCard(
         image: image ?? this.image,
@@ -42,6 +49,8 @@ class ProdItemPortaitCard {
         desc: desc ?? this.desc,
         tags: tags ?? this.tags,
         brand: brand ?? this.brand,
+        marketPrice: marketPrice ?? this.marketPrice,
+        saved: saved ?? this.saved,
       );
 
   factory ProdItemPortaitCard.fromMap(Map<String, dynamic> json) =>
@@ -52,6 +61,8 @@ class ProdItemPortaitCard {
         desc: json["desc"],
         brand: json["brand"],
         tags: List<String>.from(json["tags"].map((x) => x)),
+        marketPrice: null,
+        saved: null,
       );
 
   Map<String, dynamic> toMap() => {
@@ -60,6 +71,8 @@ class ProdItemPortaitCard {
         "name": name,
         "desc": desc,
         "brand": brand,
+        "marketPrice": marketPrice,
+        "saved": saved,
         "tags": List<dynamic>.from(tags.map((x) => x)),
       };
 }
@@ -73,6 +86,8 @@ final List<ProdItemPortaitCard> recommendedItems = [
     price: 10.99,
     tags: ["Special Offer", "Presell", "New Item", "1"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -82,6 +97,8 @@ final List<ProdItemPortaitCard> recommendedItems = [
     price: 10.99,
     tags: ["1", "2", "3"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -91,6 +108,8 @@ final List<ProdItemPortaitCard> recommendedItems = [
     price: 10.99,
     tags: ["New Item"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -100,6 +119,8 @@ final List<ProdItemPortaitCard> recommendedItems = [
     price: 10.99,
     tags: ["1", "2", "3"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -109,6 +130,8 @@ final List<ProdItemPortaitCard> recommendedItems = [
     price: 10.99,
     tags: ["1", "2", "3"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -118,6 +141,8 @@ final List<ProdItemPortaitCard> recommendedItems = [
     price: 10.99,
     tags: ["1", "2", "3"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -127,6 +152,8 @@ final List<ProdItemPortaitCard> recommendedItems = [
     price: 10.99,
     tags: ["1", "2", "3"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -136,6 +163,8 @@ final List<ProdItemPortaitCard> recommendedItems = [
     price: 10.99,
     tags: ["1", "2", "3"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
 ];
 
@@ -148,6 +177,8 @@ final List<ProdItemPortaitCard> recommendedItems4 = [
     price: 10.99,
     tags: ["Special Offer", "Presell", "New Item", "1"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -157,6 +188,8 @@ final List<ProdItemPortaitCard> recommendedItems4 = [
     price: 10.99,
     tags: ["1", "2", "3"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -166,6 +199,8 @@ final List<ProdItemPortaitCard> recommendedItems4 = [
     price: 10.99,
     tags: ["New Item"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -175,6 +210,8 @@ final List<ProdItemPortaitCard> recommendedItems4 = [
     price: 10.99,
     tags: ["1", "2", "3"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
 ];
 
@@ -187,6 +224,8 @@ final List<ProdItemPortaitCard> recommendedItems3 = [
     price: 10.99,
     tags: ["Special Offer", "Presell", "New Item", "1"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -196,6 +235,8 @@ final List<ProdItemPortaitCard> recommendedItems3 = [
     price: 10.99,
     tags: ["1", "2", "3"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -205,6 +246,8 @@ final List<ProdItemPortaitCard> recommendedItems3 = [
     price: 10.99,
     tags: ["New Item"],
     brand: '',
+    marketPrice: 0.0,
+    saved: 0.0,
   ),
 ];
 
@@ -217,6 +260,8 @@ final List<ProdItemPortaitCard> recommendedItems6 = [
     price: 10.99,
     brand: 'GUCCI',
     tags: ["Special Offer", "Presell", "New Item", "1"],
+    marketPrice: 19.99,
+    saved: 10.99,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -226,6 +271,8 @@ final List<ProdItemPortaitCard> recommendedItems6 = [
     price: 10.99,
     brand: 'NIKE',
     tags: ["1", "2", "3"],
+    marketPrice: 19.99,
+    saved: 10.99,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -235,6 +282,8 @@ final List<ProdItemPortaitCard> recommendedItems6 = [
     brand: 'ESSENTIAL',
     price: 10.99,
     tags: ["New Item"],
+    marketPrice: 19.99,
+    saved: 10.99,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -244,6 +293,8 @@ final List<ProdItemPortaitCard> recommendedItems6 = [
     brand: 'Rebook',
     price: 10.99,
     tags: ["Special Offer", "Presell", "New Item", "1"],
+    marketPrice: 19.99,
+    saved: 10.99,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -253,6 +304,8 @@ final List<ProdItemPortaitCard> recommendedItems6 = [
     price: 10.99,
     brand: 'RUDY MARY JANE',
     tags: ["1", "2", "3"],
+    marketPrice: 19.99,
+    saved: 10.99,
   ),
   new ProdItemPortaitCard(
     desc: "desc",
@@ -262,5 +315,140 @@ final List<ProdItemPortaitCard> recommendedItems6 = [
     price: 10.99,
     brand: 'CARIUMA',
     tags: ["New Item"],
+    marketPrice: 19.99,
+    saved: 10.99,
+  ),
+];
+
+final List<ProdItemPortaitCard> savedItems = [
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://assets.epicurious.com/photos/59275098ec6b83576ab8ee30/1:1/w_1495,h_1495,c_limit/olive-oil-bottles_25052017.jpg',
+    name: 'iphone X10 Wifi control camera 150000 px new brand strechable lens',
+    price: 110.99,
+    brand: 'GUCCI',
+    tags: ["Special Offer", "Presell", "New Item", "1"],
+    marketPrice: 119.99,
+    saved: 10.99,
+  ),
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://previews.123rf.com/images/kiboka/kiboka1708/kiboka170800025/84939582-raw-beaf-meat-and-spices-over-stoun-table.jpg',
+    name: 'iphone X10 Wifi control camera 150000 px new brand strechable lens',
+    price: 0.99,
+    brand: 'NIKE',
+    tags: ["1", "2", "3"],
+    marketPrice: 11.99,
+    saved: 10.99,
+  ),
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://www.recipetineats.com/wp-content/uploads/2020/02/Honey-Garlic-Chicken-Breast_5-SQ.jpg',
+    name: 'name3',
+    brand: 'ESSENTIAL',
+    price: 10.99,
+    tags: ["New Item"],
+    marketPrice: 19.99,
+    saved: 10.99,
+  ),
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-gold-hero?wid=940&hei=1112&fmt=png-alpha&qlt=80&.v=1604021659000',
+    name: 'iphone X10 Wifi control camera 150000 px new brand strechable lens',
+    brand: 'Rebook',
+    price: 10.99,
+    tags: ["Special Offer", "Presell", "New Item", "1"],
+    marketPrice: 19.99,
+    saved: 10.99,
+  ),
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://images.unsplash.com/photo-1545558014-8692077e9b5c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxleHBsb3JlLWZlZWR8MjR8fHxlbnwwfHx8fA%3D%3D&w=1000&q=80',
+    name: 'iphone X10 Wifi control camera 150000 px new brand strechable lens',
+    price: 10.99,
+    brand: 'RUDY MARY JANE',
+    tags: ["1", "2", "3"],
+    marketPrice: 19.99,
+    saved: 10.99,
+  ),
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://cdn.shopify.com/s/files/1/2495/5044/products/oca-low-red-canvas-sneaker.slideshow1_1f09ae39-2cf4-458a-974a-1673f9f61291.jpg?v=1610695036',
+    name: 'name3',
+    price: 10.99,
+    brand: 'CARIUMA',
+    tags: ["New Item"],
+    marketPrice: 19.99,
+    saved: 10.99,
+  ),
+];
+
+//timelimitsale
+
+final List<ProdItemPortaitCard> timeLimitedSales = [
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://assets.epicurious.com/photos/59275098ec6b83576ab8ee30/1:1/w_1495,h_1495,c_limit/olive-oil-bottles_25052017.jpg',
+    name: 'iphone X10 Wifi control camera 150000 px new brand strechable lens',
+    price: 110.99,
+    brand: 'GUCCI',
+    tags: ["Special Offer", "Presell", "New Item", "1"],
+    marketPrice: 119.99,
+    saved: 10.99,
+  ),
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://previews.123rf.com/images/kiboka/kiboka1708/kiboka170800025/84939582-raw-beaf-meat-and-spices-over-stoun-table.jpg',
+    name: 'iphone X10 Wifi control camera 150000 px new brand strechable lens',
+    price: 0.99,
+    brand: 'NIKE',
+    tags: ["1", "2", "3"],
+    marketPrice: 11.99,
+    saved: 10.99,
+  ),
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://assets.epicurious.com/photos/59275098ec6b83576ab8ee30/1:1/w_1495,h_1495,c_limit/olive-oil-bottles_25052017.jpg',
+    name: 'iphone X10 Wifi control camera 150000 px new brand strechable lens',
+    price: 110.99,
+    brand: 'GUCCI',
+    tags: ["Special Offer", "Presell", "New Item", "1"],
+    marketPrice: 119.99,
+    saved: 10.99,
+  ),
+];
+
+//special offers
+final List<ProdItemPortaitCard> specialOffers = [
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://assets.epicurious.com/photos/59275098ec6b83576ab8ee30/1:1/w_1495,h_1495,c_limit/olive-oil-bottles_25052017.jpg',
+    name: 'iphone X10 Wifi control camera 150000 px new brand strechable lens',
+    price: 110.99,
+    brand: 'GUCCI',
+    tags: ["Special Offer", "Presell", "New Item", "1"],
+    marketPrice: 119.99,
+    saved: 10.99,
+  ),
+  new ProdItemPortaitCard(
+    desc: "desc",
+    image:
+        'https://previews.123rf.com/images/kiboka/kiboka1708/kiboka170800025/84939582-raw-beaf-meat-and-spices-over-stoun-table.jpg',
+    name: 'iphone X10 Wifi control camera 150000 px new brand strechable lens',
+    price: 0.99,
+    brand: 'NIKE',
+    tags: ["1", "2", "3"],
+    marketPrice: 11.99,
+    saved: 10.99,
   ),
 ];

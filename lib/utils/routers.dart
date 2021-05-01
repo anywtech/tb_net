@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:tb_net/pages/deliver_address.dart';
 import 'package:tb_net/pages/chat.dart';
 import 'package:tb_net/pages/dispatcher.dart';
@@ -13,6 +12,7 @@ import 'package:tb_net/pages/login.dart';
 import 'package:tb_net/pages/news.dart';
 import 'package:tb_net/pages/notification_messages.dart';
 import 'package:tb_net/pages/orders/orders.dart';
+import 'package:tb_net/pages/product/product_detail.dart';
 import 'package:tb_net/pages/profile.dart';
 import 'package:tb_net/pages/profile_banner_card/cart.dart';
 import 'package:tb_net/pages/profile_banner_card/following.dart';
@@ -56,6 +56,7 @@ class RouterPages {
   static const String StoreRegConfirm = "ALIZII Store";
   static const String RegisterDriver = "Register Driver";
   static const String DriverRegConfirm = "ALIZII Driver";
+  static const String ProductDetail = "ProductDetail";
 }
 
 class Routers {
@@ -144,6 +145,13 @@ class Routers {
         return MaterialPageRoute(
             builder: (context) => EditingAddress(
                   type: settings.arguments,
+                ));
+        break;
+
+      case RouterPages.ProductDetail:
+        return MaterialPageRoute(
+            builder: (context) => ProductDetail(
+                  productDetail: settings.arguments,
                 ));
         break;
       case RouterPages.Wallet:
