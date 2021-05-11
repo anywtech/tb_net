@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tb_net/models/proditem_portrait_card.dart';
 import 'package:tb_net/pages/chat.dart';
 import 'package:tb_net/utils/global_pref.dart';
+import 'package:tb_net/widgets/home/standard_grid_item_card.dart';
 
 class HomeStandardGrid extends StatelessWidget {
   const HomeStandardGrid({

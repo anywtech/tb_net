@@ -15,7 +15,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:tb_net/utils/routers.dart';
 import 'package:tb_net/widgets/footer.dart';
 import 'package:tb_net/widgets/prod/prod_sku_modal.dart';
-import 'package:tb_net/widgets/prod/sku_buy_modal.dart';
 import 'package:tb_net/widgets/rec_staggered_view.dart';
 
 class ProductDetail extends StatelessWidget {
