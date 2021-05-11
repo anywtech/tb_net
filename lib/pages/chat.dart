@@ -958,11 +958,11 @@ class _HeaderCategoryBarState extends State<HeaderCategoryBar> {
     'FRESH',
     'FOOD',
     'ELECTRONIC',
-    'WOMENs',
-    'MENs',
+    'WOMEN',
+    'MEN',
     'AUTOMOTIVE',
-    'SPORTs',
-    'GIFTs',
+    'SPORT',
+    'GIFT',
     'MEDICAL'
   ];
 
