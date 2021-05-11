@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:tb_net/pages/cart/cartype1.dart';
+import 'package:tb_net/pages/cart/payment_result.dart';
 import 'package:tb_net/pages/deliver_address.dart';
 import 'package:tb_net/pages/chat.dart';
 import 'package:tb_net/pages/dispatcher.dart';
@@ -24,6 +26,7 @@ import 'package:tb_net/pages/profile_settings/setting.dart';
 import 'package:tb_net/pages/register.dart';
 import 'package:tb_net/pages/store/my_store.dart';
 import 'package:tb_net/pages/store/register_store.dart';
+import 'package:tb_net/pages/store/store_manage.dart';
 import 'package:tb_net/pages/store/store_reg_confirm.dart';
 import 'package:tb_net/pages/wallet.dart';
 
@@ -57,6 +60,9 @@ class RouterPages {
   static const String RegisterDriver = "Register Driver";
   static const String DriverRegConfirm = "ALIZII Driver";
   static const String ProductDetail = "ProductDetail";
+  static const String CartType1 = 'CartType1';
+  static const String PaymentResult = 'Payment';
+  static const String StoreManage = 'StoreManage';
 }
 
 class Routers {
@@ -110,11 +116,20 @@ class Routers {
       case RouterPages.MyStore:
         return MaterialPageRoute(builder: (context) => MyStore());
         break;
+      case RouterPages.StoreManage:
+        return MaterialPageRoute(builder: (context) => StoreManage());
+        break;
       case RouterPages.Orders:
         return MaterialPageRoute(builder: (context) => Orders());
         break;
       case RouterPages.Cart:
         return MaterialPageRoute(builder: (context) => Cart());
+        break;
+      case RouterPages.CartType1:
+        return MaterialPageRoute(builder: (context) => CartType1());
+        break;
+      case RouterPages.PaymentResult:
+        return MaterialPageRoute(builder: (context) => PaymentResult());
         break;
       case RouterPages.Following:
         return MaterialPageRoute(builder: (context) => Following());

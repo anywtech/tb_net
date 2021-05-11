@@ -12,21 +12,22 @@ String productDetailToMap(ProductDetail data) => json.encode(data.toMap());
 
 class ProductDetail {
   ProductDetail({
-    @required this.id,
-    @required this.name,
-    @required this.desc,
-    @required this.marketPrice,
-    @required this.price,
-    @required this.qty,
-    @required this.skus,
-    @required this.tags,
-    @required this.features,
-    @required this.canBeAgent,
-    @required this.timelimit,
-    @required this.cat,
-    @required this.images,
-    @required this.leadImg,
-    @required this.vendorId,
+    this.id,
+    this.name,
+    this.desc,
+    this.marketPrice,
+    this.price,
+    this.qty,
+    this.skus,
+    this.tags,
+    this.features,
+    this.canBeAgent,
+    this.timelimit,
+    this.cat,
+    this.images,
+    this.leadImg,
+    this.vendorId,
+    this.descImgs,
   });
 
   final String id;
@@ -42,6 +43,7 @@ class ProductDetail {
   final Timelimit timelimit;
   final Cat cat;
   final List<String> images;
+  final List<String> descImgs;
   final String leadImg;
   final String vendorId;
 
@@ -59,6 +61,7 @@ class ProductDetail {
     Timelimit timelimit,
     Cat cat,
     List<String> images,
+    List<String> descImgs,
     String leadImg,
     String vendorId,
   }) =>
@@ -78,6 +81,7 @@ class ProductDetail {
         images: images ?? this.images,
         leadImg: leadImg ?? this.leadImg,
         vendorId: vendorId ?? this.vendorId,
+        descImgs: descImgs ?? this.descImgs,
       );
 
   factory ProductDetail.fromMap(Map<String, dynamic> json) => ProductDetail(
@@ -94,6 +98,7 @@ class ProductDetail {
         timelimit: Timelimit.fromMap(json["timelimit"]),
         cat: Cat.fromMap(json["cat"]),
         images: List<String>.from(json["images"].map((x) => x)),
+        descImgs: List<String>.from(json["descImgs"].map((x) => x)),
         leadImg: json["leadImg"],
         vendorId: json["vendorId"],
       );
@@ -112,6 +117,7 @@ class ProductDetail {
         "timelimit": timelimit.toMap(),
         "cat": cat.toMap(),
         "images": List<dynamic>.from(images.map((x) => x)),
+        "descImgs": List<dynamic>.from(descImgs.map((x) => x)),
         "leadImg": leadImg,
         "vendorId": vendorId,
       };
@@ -172,7 +178,7 @@ class Skus {
   final String color;
   final String model;
   final String skusSet;
-  final int prc;
+  final double prc;
   final int stk;
 
   Skus copyWith({
@@ -180,7 +186,7 @@ class Skus {
     String color,
     String model,
     String skusSet,
-    int prc,
+    double prc,
     int stk,
   }) =>
       Skus(
@@ -254,27 +260,54 @@ class Timelimit {
 
 //proddetail
 final ProductDetail product001 = new ProductDetail(
-    id: "10001",
-    name: "prod001",
-    desc:
-        "prod001  desc prod001 prod001desc prod001 prod001desc prod001 prod001",
-    marketPrice: 100.99,
-    price: 9.99,
-    qty: 100,
-    skus: [],
-    tags: [],
-    features: [],
-    canBeAgent: true,
-    timelimit: new Timelimit(
-        start: '2020-04-30 00:00:00', duration: 24, price: 10.99, qty: 10),
-    cat: new Cat(
-        id1: '10001', name1: 'cat1001', id2: '20001', name2: 'cat20001'),
-    images: [
-      "https://media.cntraveler.com/photos/581250f2997d59497dccf8bc/16:9/w_2560%2Cc_limit/GettyImages-185298837.jpg",
-      "https://cdn.britannica.com/69/155469-131-14083F59/airplane-flight.jpg",
-      "https://assets.weforum.org/article/image/WfytOvmrVl8cH4hqhvtHrp9NR6DrCJ10BiZgID56xm8.JPG",
-      "https://singularityhub.com/wp-content/uploads/2018/12/airplane-flying-above-clouds_shutterstock_553131187-1068x601.jpg"
-    ],
-    leadImg:
-        "https://www.ishn.com/ext/resources/900x550/airplane-plane-flight-900.jpg?height=635&t=1583412590&width=1200",
-    vendorId: 'v10001');
+  id: "10001",
+  name: "prod001",
+  desc: "prod001  desc prod001 prod001desc prod001 prod001desc prod001 prod001",
+  marketPrice: 100.99,
+  price: 9.99,
+  qty: 100,
+  skus: [
+    new Skus(
+        sku: "sku10001",
+        color: "Red",
+        model: "model0001",
+        skusSet: "skusSet1",
+        prc: 10.99,
+        stk: 9999),
+    new Skus(
+        sku: "sku10002",
+        color: "Red",
+        model: "model0001",
+        skusSet: "skusSet1",
+        prc: 100.99,
+        stk: 9999),
+    new Skus(
+        sku: "sku10002",
+        color: "Red",
+        model: "model0001",
+        skusSet: "skusSet1",
+        prc: 1011.99,
+        stk: 9999),
+  ],
+  tags: [],
+  features: [],
+  canBeAgent: true,
+  timelimit: new Timelimit(
+      start: '2020-04-30 00:00:00', duration: 24, price: 10.99, qty: 10),
+  cat: new Cat(id1: '10001', name1: 'cat1001', id2: '20001', name2: 'cat20001'),
+  images: [
+    "https://media.cntraveler.com/photos/581250f2997d59497dccf8bc/16:9/w_2560%2Cc_limit/GettyImages-185298837.jpg",
+    "https://cdn.britannica.com/69/155469-131-14083F59/airplane-flight.jpg",
+    "https://assets.weforum.org/article/image/WfytOvmrVl8cH4hqhvtHrp9NR6DrCJ10BiZgID56xm8.JPG",
+    "https://singularityhub.com/wp-content/uploads/2018/12/airplane-flying-above-clouds_shutterstock_553131187-1068x601.jpg"
+  ],
+  leadImg:
+      "https://www.ishn.com/ext/resources/900x550/airplane-plane-flight-900.jpg?height=635&t=1583412590&width=1200",
+  vendorId: 'v10001',
+  descImgs: [
+    "https://media.cntraveler.com/photos/581250f2997d59497dccf8bc/16:9/w_2560%2Cc_limit/GettyImages-185298837.jpg",
+    "https://cdn.britannica.com/69/155469-131-14083F59/airplane-flight.jpg",
+    "https://assets.weforum.org/article/image/WfytOvmrVl8cH4hqhvtHrp9NR6DrCJ10BiZgID56xm8.JPG",
+    "https://singularityhub.com/wp-content/uploads/2018/12/airplane-flying-above-clouds_shutterstock_553131187-1068x601.jpg"
+  ],
+);

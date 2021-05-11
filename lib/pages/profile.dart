@@ -244,7 +244,7 @@ class _ProfileState extends State<Profile> {
                           TwolineCard(
                             onTap: () {
                               Navigator.of(context)
-                                  .pushNamed(RouterPages.MyStore);
+                                  .pushNamed(RouterPages.StoreManage);
                             },
                             leadingIcon: Icons.store,
                             trailingText: "My Store",
